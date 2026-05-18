@@ -10,35 +10,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap');
 
 /* === LPT brand palette ===========================================
-   Mirrors lespetitstrilingues.com without going pure-white-stark.
-   Page background stays a barely-warm ivory (so the site keeps its
-   inviting, kids-school feel) but text moves to clean near-black for
-   readability, the CTA matches the brand's golden orange exactly, and
-   we add three "blob" accent tokens (yellow / blue / red) that I use
-   as decorative SVG shapes + stat highlights — same accents you see
-   on the real homepage. */
+   Palette demandée : 白 藍 紅 黃 — fond blanc franc + accents
+   bleu / rouge / jaune. On laisse tomber l'ivoire chaud qui tirait
+   trop sur le jaune crémeux. Le CTA principal passe en bleu (couleur
+   plus ludique-école que l'orange doré, et il sort mieux sur fond
+   blanc), avec l'orange relégué en accent secondaire pour les
+   highlights chaleureux. */
 :root {
-  --lpt-primary:        #f5a623;   /* golden orange — main CTA */
-  --lpt-primary-dark:   #d8901a;   /* hover */
-  --lpt-secondary:      #d62828;   /* brand red — accents & stat numbers */
+  --lpt-primary:        #2a93dc;   /* blue — main CTA (was golden orange) */
+  --lpt-primary-dark:   #1d7ab8;   /* hover */
+  --lpt-secondary:      #ef5349;   /* brand red — accents & stat highlights */
 
-  /* Brand-blob accents — playful kids-school colours, not neon.
-     Think Crayola pastel: bright enough to read as deliberate brand,
-     soft enough that a parent doesn't squint. */
-  --lpt-yellow:         #ffe066;   /* soft sunshine — lighter, less amber */
-  --lpt-blue:           #2a93dc;   /* punchier sky blue (was #3aa8e0, too pale) */
-  --lpt-red:            #ef5349;   /* warm tomato red (softer than pure scarlet) */
+  /* Brand-accent palette — Crayola-friendly, white-bg ready. */
+  --lpt-yellow:         #ffd84d;   /* warmer sunshine, pops on white */
+  --lpt-blue:           #2a93dc;   /* sky blue — primary */
+  --lpt-red:            #ef5349;   /* warm tomato red */
+  --lpt-orange:         #f5a623;   /* kept as accent / scribble underlines */
 
-  /* Text — clean near-black for readability, no more warm-brown muddy */
+  /* Text — clean near-black for readability */
   --lpt-text:           #1a1a1a;
   --lpt-text-muted:     rgba(26, 26, 26, .65);
   --lpt-text-soft:      rgba(26, 26, 26, .18);
 
-  /* Background — warm ivory, NOT pure white. Subtle warmth so the
-     site still feels welcoming (avoids the corporate-stark trap). */
-  --lpt-bg:             #fdfaf3;
-  --lpt-bg-warm:        #faf5e8;
-  --lpt-bg-tint:        rgba(245, 185, 66, .12); /* yellow tint highlight */
+  /* Background — pure white. NO more warm-ivory yellow tint.
+     Sections alternent entre blanc et un gris-bleu très pâle pour
+     créer un rythme sans tirer sur le jaune. */
+  --lpt-bg:             #ffffff;
+  --lpt-bg-warm:        #f4f7fb;   /* cool pale grey-blue (NOT yellow cream) */
+  --lpt-bg-tint:        rgba(42, 147, 220, .08); /* blue tint highlight */
   --lpt-surface:        #ffffff;
   --lpt-border:         rgba(26, 26, 26, .08);
 }
@@ -146,7 +145,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
 .teachers-intro h2, .teachers-h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.05; margin: 0 0 1.5rem; }
 .teachers-intro p  { font-size: 1.05rem; line-height: 1.55; opacity: .78; margin: 0; }
 .teachers-pillars { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
-.teachers-pillars li { background: #f4efe2; border-radius: 999px; padding: .45rem 1rem; font-size: .95rem; line-height: 1.2; }
+.teachers-pillars li { background: #eef2f7; border-radius: 999px; padding: .45rem 1rem; font-size: .95rem; line-height: 1.2; }
 .teachers-price { display: inline-block; background: #f5a623; color: #fff; padding: .5rem 1.1rem; border-radius: 999px; font-weight: 600; font-size: 1rem; }
 .teachers-grid {
   display: grid;
@@ -155,7 +154,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
 }
 .teacher-card {
   display: flex; flex-direction: column;
-  background: #f4efe2;
+  background: #eef2f7;
   border-radius: 1.25rem;
   padding: 1.5rem;
   transition: transform .25s ease, box-shadow .25s ease;
@@ -800,7 +799,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
 .students-h1   { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; line-height: 1.05; margin: 0 0 1.5rem; }
 .students-pillars { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; }
 .students-pillars li {
-  background: #f4efe2; border-radius: 999px; padding: .5rem 1.1rem;
+  background: #eef2f7; border-radius: 999px; padding: .5rem 1.1rem;
   font-size: .95rem; line-height: 1.2;
 }
 .students-grid {
@@ -812,7 +811,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
 .student-card { display: flex; flex-direction: column; }
 .student-photo {
   width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center top;
-  border-radius: .9rem; background: #f4efe2;
+  border-radius: .9rem; background: #eef2f7;
 }
 .student-name { margin-top: .8rem; font-size: .95rem; font-weight: 600; text-align: center; }
 
@@ -825,7 +824,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
 }
 .work-photo {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: .75rem;
-  background: #f4efe2;
+  background: #eef2f7;
 }
 
 @media (max-width: 640px) {
@@ -951,7 +950,7 @@ html[lang="en"] [data-lang="en"] { display: inline !important; }
     radial-gradient(480px 440px at 92% 16%, rgba(255, 224, 102, .55) 0%, transparent 62%),
     radial-gradient(460px 420px at 4% 52%, rgba(42, 147, 220, .55) 0%, transparent 62%),
     radial-gradient(560px 320px at 75% 96%, rgba(239, 83, 73, .42) 0%, transparent 66%),
-    linear-gradient(180deg, #fdfaf3 0%, #fbf6e8 100%) !important;
+    linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%) !important;
   position: relative;
   overflow: hidden;
 }
@@ -1476,20 +1475,20 @@ html[lang="fr"] .wrap-about-home h2.text-h4 {
   background:
     radial-gradient(420px 380px at 92% 16%, rgba(255, 224, 102, .35) 0%, transparent 65%),
     radial-gradient(380px 340px at 6% 50%, rgba(42, 147, 220, .25) 0%, transparent 65%),
-    linear-gradient(180deg, #fdfaf3 0%, #fbf6e8 100%);
+    linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
   position: relative;
 }
 .course-detail-section[data-course="english"] {
   background:
     radial-gradient(420px 380px at 8% 18%, rgba(42, 147, 220, .32) 0%, transparent 65%),
     radial-gradient(420px 380px at 92% 80%, rgba(239, 83, 73, .25) 0%, transparent 65%),
-    linear-gradient(180deg, #fdfaf3 0%, #fbf6e8 100%);
+    linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
 }
 .course-detail-section[data-course="french"] {
   background:
     radial-gradient(420px 380px at 92% 16%, rgba(42, 147, 220, .28) 0%, transparent 65%),
     radial-gradient(380px 340px at 6% 50%, rgba(239, 83, 73, .25) 0%, transparent 65%),
-    linear-gradient(180deg, #fdfaf3 0%, #fbf6e8 100%);
+    linear-gradient(180deg, #ffffff 0%, #f4f7fb 100%);
 }
 .course-detail-wrap {
   max-width: 880px;
@@ -1753,7 +1752,7 @@ h1, h2, h3, h4, h5, h6,
   width: clamp(70px, 14vw, 150px);
   height: 14px;
   margin-top: .4rem;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 14'><path d='M3 8 Q 22 1 42 8 T 82 8 T 122 8 T 148 6' stroke='%23f5a623' stroke-width='3.5' fill='none' stroke-linecap='round'/></svg>") no-repeat left center;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 14'><path d='M3 8 Q 22 1 42 8 T 82 8 T 122 8 T 148 6' stroke='%23ef5349' stroke-width='3.5' fill='none' stroke-linecap='round'/></svg>") no-repeat left center;
   background-size: contain;
 }
 
