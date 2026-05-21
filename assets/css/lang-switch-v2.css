@@ -1853,3 +1853,88 @@ h1, h2, h3, h4, h5, h6,
     transform: none !important;
   }
 }
+
+/* ===================================================================
+   Testimonial cards — give them visual distinction from white bg
+   ===================================================================
+   Before: white card on white section = fades into background.
+   After: section gets a cool pale grey-blue band, card stays white
+   but with a punchy shadow + a 4px blue top stripe to scream
+   "this is a separate surface" + slight tilt for character. */
+.section.testimonial-home-section {
+  background: var(--lpt-bg-warm) !important; /* #f4f7fb cool pale */
+  position: relative;
+}
+
+.card-testimonial {
+  background: #ffffff !important;
+  border-top: 4px solid var(--lpt-blue) !important;
+  border-radius: 18px !important;
+  padding: 2rem 1.75rem !important;
+  box-shadow:
+    0 18px 40px -14px rgba(26, 26, 26, .18),
+    0 4px 12px -4px rgba(26, 26, 26, .08) !important;
+  position: relative;
+}
+
+/* Big opening quote mark in brand red as a sticker decoration */
+.card-testimonial::before {
+  content: '\201C';
+  position: absolute;
+  top: -8px; right: 18px;
+  font-family: 'Caveat', cursive;
+  font-size: 5.5rem;
+  line-height: 1;
+  color: var(--lpt-red);
+  opacity: .85;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* Stars in brand yellow so they actually look like rated stars */
+.card-testimonial .stars-tile .star svg path,
+.card-testimonial .stars-tile .star svg polygon {
+  fill: var(--lpt-yellow) !important;
+  stroke: var(--lpt-yellow) !important;
+}
+
+/* Subtle hover lift on the whole card */
+.card-testimonial {
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1),
+              box-shadow .25s ease !important;
+}
+.card-testimonial:hover {
+  transform: translateY(-4px) rotate(-.4deg);
+  box-shadow:
+    0 24px 50px -14px rgba(26, 26, 26, .22),
+    0 6px 16px -4px rgba(26, 26, 26, .1) !important;
+}
+
+/* ===================================================================
+   Blog/program carousel headline — center the H2 like the other H2s
+   ===================================================================
+   The features-section H2 sits in .wrap-about-home which is centered
+   (text-align: center, max-width 6 columns). The carousel H2 was in
+   a flex space-between row with the CTA pinned to the right, so it
+   ended up left-aligned with weird wrap. This re-stacks H2 + CTA
+   vertically and centers them — same vibe as .wrap-about-home. */
+.blog-carousel-section .headline-program-carousel {
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  max-width: 880px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  gap: 1.5rem !important;
+}
+.blog-carousel-section .heading-program-carousel {
+  max-width: 680px;
+}
+.blog-carousel-section .heading-program-carousel h2 {
+  margin: 0 auto !important;
+}
+.blog-carousel-section .button-wrap-program-carousel {
+  padding-right: 0 !important;
+  justify-content: center !important;
+  height: auto !important;
+}
