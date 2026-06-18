@@ -126,6 +126,13 @@
   .upsell-label{font-weight:800;color:var(--ink);font-size:.92rem;margin-right:.2rem}
   .uchip{font-weight:800;font-size:.85rem;background:#fff;border:1.5px dashed var(--ink-soft);color:var(--ink-soft);border-radius:999px;padding:.34em .9em}
 
+  /* 趋势图 */
+  .trend{margin-top:1.9rem;background:#fff;border:2px solid var(--ink);border-radius:20px;
+    box-shadow:8px 8px 0 var(--blue);padding:clamp(.7rem,1.6vw,1.1rem);overflow:hidden}
+  .trend img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+  .trend figcaption{margin-top:.9rem;font-weight:700;font-size:.92rem;color:var(--ink-soft);line-height:1.5;padding:0 .3rem}
+  .trend figcaption b{color:var(--red)}
+
   /* 回本 */
   .roi{display:flex;align-items:center;gap:clamp(1.2rem,4vw,3rem);flex-wrap:wrap;margin-top:1.7rem;
     background:#fff;border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--yellow);padding:clamp(1.5rem,3vw,2.2rem)}
@@ -338,7 +345,7 @@
       <div class="tier">
         <div class="tname">Brand<span>品牌运营</span></div>
         <div class="tprice">2 500 €<small>&nbsp;/ 月</small></div>
-        <div class="tscope multi">几个校区 + 社媒</div>
+        <div class="tscope multi">全部校区 + 社媒运营</div>
         <ul class="tfeat">
           <li>含前两档全部</li>
           <li>社交媒体运营 + 品牌形象建设</li>
@@ -382,14 +389,27 @@
   </div>
 </section>
 
+<!-- 时机 -->
+<section class="tint">
+  <div class="wrap reveal">
+    <div class="kicker">时机 · 别等</div>
+    <h2>现在，正是<span class="hl">投流上车</span>的最佳时机</h2>
+    <p class="lead2">投流效果是季节性的。Boulogne 的「cours de chinois」搜索，每年开学季（8–9 月）规律性飙到全年最高峰——而现在搜索量正一路往上爬。趁高峰前把账户跑热，等家长涌进来时你已经排在最前面；等峰值才开始，campagne 还在学习期，就错过了这一波。</p>
+    <figure class="trend">
+      <img src="tendance-cours-chinois.png" alt="Boulogne-Billancourt 地区「cours de chinois」Google 月度搜索趋势" loading="lazy">
+      <figcaption>Boulogne-Billancourt · 「cours de chinois」Google 月度搜索量 —— 月均 <b>170</b>，近三月 <b>+21%</b>，同比 <b>+21%</b>，每年开学季规律飙升。</figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- CTA -->
 <section>
   <div class="wrap reveal">
     <div class="cta">
       <h2>选择您的方案</h2>
       <p>两周内上线，很快迎来第一批询盘。</p>
-      <a class="btn" href="mailto:xi.huang@komo-digital.com?subject=Boulogne">联系我</a>
-      <div class="contact">KOMO · <a href="mailto:xi.huang@komo-digital.com">xi.huang@komo-digital.com</a></div>
+      <a class="btn" href="https://wa.me/33626634963" target="_blank" rel="noopener noreferrer">联系我 💬</a>
+      <div class="contact">KOMO · WhatsApp +33 6 26 63 49 63 · <a href="mailto:xi.huang@komo-digital.com">xi.huang@komo-digital.com</a></div>
     </div>
   </div>
 </section>
