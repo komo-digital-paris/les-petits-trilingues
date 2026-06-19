@@ -133,6 +133,16 @@
   .trend figcaption{margin-top:.9rem;font-weight:700;font-size:.92rem;color:var(--ink-soft);line-height:1.5;padding:0 .3rem}
   .trend figcaption b{color:var(--red)}
 
+  /* 真实案例 数据卡 */
+  .stats{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.9rem}
+  .stat-card{flex:1;min-width:240px;background:#fff;border:2.5px solid var(--ink);border-radius:18px;
+    padding:1.3rem 1.5rem;box-shadow:8px 8px 0 var(--sc,var(--blue))}
+  .stat-card.r{--sc:var(--red)}
+  .stat-big{font-family:var(--head);font-weight:800;font-size:clamp(1.7rem,3.6vw,2.4rem);color:var(--blue);line-height:1.1}
+  .stat-card.r .stat-big{color:var(--red)}
+  .stat-cap{font-weight:700;color:var(--ink-soft);font-size:.95rem;margin-top:.5rem;line-height:1.4}
+  .trend + .trend{margin-top:1.2rem}
+
   /* 回本 */
   .roi{display:flex;align-items:center;gap:clamp(1.2rem,4vw,3rem);flex-wrap:wrap;margin-top:1.7rem;
     background:#fff;border:2px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--yellow);padding:clamp(1.5rem,3vw,2.2rem)}
@@ -385,6 +395,35 @@
       <div class="txt">首月含建站，2-3 个新生就回本；之后每月 1 个新生就覆盖营销服务费。跑顺之后，有机会冲到每月 7 到 8 单。</div>
     </div>
     <p class="roi-fine">按你们真实的报名费 / 学费再调。</p>
+  </div>
+</section>
+
+<!-- 真实案例 MALAC -->
+<section class="tint-y">
+  <div class="wrap reveal">
+    <div class="kicker">真实案例 · 同类客户</div>
+    <h2>别只看预测——看 <span class="c-red">MALAC 的真实后台</span></h2>
+    <p class="lead2">MALAC 是巴黎一所少儿阿拉伯语 / 英语学校，跟你们几乎一模一样。我们给他们做了 Google 投流 + 谷歌排名自然优化。下面是他们后台的真实数据（2026 年 2 月截图，非演示）。</p>
+
+    <div class="stats">
+      <div class="stat-card r">
+        <div class="stat-big">11k € → 200k €</div>
+        <div class="stat-cap">广告投入 → 新增营业额（CA）</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big">报名 ×2</div>
+        <div class="stat-cap">完成报名数（dossier complété）接近翻倍</div>
+      </div>
+    </div>
+
+    <figure class="trend">
+      <img src="malac-dossiers.png" alt="MALAC 后台：完成报名 2024/25 与 2025/26 对比" loading="lazy">
+      <figcaption>MALAC 后台「完成报名（dossier complété）」—— 粉色 2025/26 比蓝色 2024/25 <b>接近翻倍</b>，开学季（9 月）尤其明显。</figcaption>
+    </figure>
+    <figure class="trend">
+      <img src="malac-ca.png" alt="MALAC 后台：累计营业额（CA）按月对比" loading="lazy">
+      <figcaption>MALAC 后台「累计营业额（CA）」—— 2025/26 全年高于 2024/25。</figcaption>
+    </figure>
   </div>
 </section>
 
