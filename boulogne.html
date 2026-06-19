@@ -142,6 +142,16 @@
   .stat-card.r .stat-big{color:var(--red)}
   .stat-cap{font-weight:700;color:var(--ink-soft);font-size:.95rem;margin-top:.5rem;line-height:1.4}
   .trend + .trend{margin-top:1.2rem}
+  /* 学年色例 + 放大镜 */
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin-top:1.6rem;font-weight:800;font-size:.95rem;color:var(--ink)}
+  .legend .lg{display:inline-flex;align-items:center;gap:.5rem}
+  .legend .dot{width:.95rem;height:.95rem;border-radius:50%;border:2px solid var(--ink)}
+  .zoomfig{position:relative}
+  .lens{position:absolute;top:3%;right:3%;width:40%;max-width:380px;border:4px solid var(--ink);
+    border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(29,43,100,.32);background:#fff;line-height:0;z-index:3}
+  .lens img{width:100%;height:auto;display:block;border:0!important;border-radius:0!important}
+  .lens::before{content:"🔍";position:absolute;left:-14px;top:-14px;font-size:1.1rem;background:var(--yellow);
+    border:3px solid var(--ink);border-radius:50%;width:2rem;height:2rem;display:grid;place-items:center;line-height:1;z-index:4}
 
   /* 回本 */
   .roi{display:flex;align-items:center;gap:clamp(1.2rem,4vw,3rem);flex-wrap:wrap;margin-top:1.7rem;
@@ -201,6 +211,7 @@
     .tier.feat{order:-1}
     .mcards{grid-template-columns:1fr}
     .bar-tag{display:none}
+    .lens{width:56%;max-width:none}
   }
   @media print{
     header.bar{position:static}
@@ -416,13 +427,24 @@
       </div>
     </div>
 
+    <div class="legend">
+      <span class="lg"><i class="dot" style="background:#4D8DF6"></i>蓝 = 2024/25（上学年）</span>
+      <span class="lg"><i class="dot" style="background:#E635E6"></i>粉 = 2025/26（本学年）</span>
+    </div>
+
     <figure class="trend">
       <img src="malac-dossiers.png" alt="MALAC 后台：完成报名 2024/25 与 2025/26 对比" loading="lazy">
       <figcaption>MALAC 后台「完成报名（dossier complété）」—— 粉色 2025/26 比蓝色 2024/25 <b>接近翻倍</b>，开学季（9 月）尤其明显。</figcaption>
     </figure>
-    <figure class="trend">
-      <img src="malac-ca.png" alt="MALAC 后台：累计营业额（CA）按月对比" loading="lazy">
-      <figcaption>MALAC 后台「累计营业额（CA）」—— 2025/26 全年高于 2024/25。</figcaption>
+    <figure class="trend zoomfig">
+      <img src="malac-ca-2425.png" alt="MALAC 后台：累计营业额 2024/25" loading="lazy">
+      <span class="lens"><img src="zoom-ca-2425.png" alt="2024/2025 décembre 994 683 €"></span>
+      <figcaption><b>上学年 2024/25</b> —— 累计营业额（CA）到 12 月 <b>994 683 €</b>。</figcaption>
+    </figure>
+    <figure class="trend zoomfig">
+      <img src="malac-ca-2526.png" alt="MALAC 后台：累计营业额 2025/26" loading="lazy">
+      <span class="lens"><img src="zoom-ca-2526.png" alt="2025/2026 décembre 1 103 854 €"></span>
+      <figcaption><b>本学年 2025/26</b> —— 同期累计已达 <b class="c-red">1 103 854 €</b>，比上学年多 <b class="c-red">+11 万 €</b>，而且 25/26 这一年还在往上走。</figcaption>
     </figure>
   </div>
 </section>
