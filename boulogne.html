@@ -154,6 +154,20 @@
   .farrow{color:var(--ink-soft);font-weight:800}
   .fcost{margin-left:auto;font-weight:800;color:var(--ink);background:var(--soft-yellow);border-radius:999px;padding:.3em .85em;font-size:.9rem}
   .fnote{font-weight:700;color:var(--ink-soft);font-size:.8rem}
+  /* 测算表 */
+  .est{width:100%;margin-top:1.8rem;border-collapse:separate;border-spacing:0;background:#fff;
+    border:2px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 var(--blue)}
+  .est td{padding:.9rem 1.2rem;border-bottom:1px solid var(--line);font-weight:700;font-size:.98rem;vertical-align:top}
+  .est tr:last-child td{border-bottom:0}
+  .est td:first-child{color:var(--ink-soft);width:58%}
+  .est td:last-child{font-weight:800;color:var(--ink)}
+  .est td small{display:block;font-weight:600;font-size:.8rem;color:var(--ink-soft)}
+  .est tr.hi td{background:var(--soft-yellow)}
+  .est tr.hi td:last-child{color:var(--red);font-family:var(--head);font-size:1.15rem}
+  /* 风险卡 */
+  .risks{margin-top:1.8rem;background:#fff;border:2px solid var(--ink);border-radius:18px;
+    padding:1.3rem 1.5rem;box-shadow:8px 8px 0 var(--red)}
+  .risks h3{font-family:var(--head);font-weight:800;font-size:1.2rem;margin-bottom:.7rem}
   /* 学年色例 + 放大镜 */
   .legend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin-top:1.6rem;font-weight:800;font-size:.95rem;color:var(--ink)}
   .legend .lg{display:inline-flex;align-items:center;gap:.5rem}
@@ -251,7 +265,7 @@
 <section class="hero">
   <span class="blob b1"></span><span class="blob b2"></span>
   <div class="wrap">
-    <span class="eyebrow"><span class="dot"></span> Boulogne · 2026 年 6 月</span>
+    <span class="eyebrow"><span class="dot"></span> Boulogne · 2026 年 7 月</span>
     <h1>先从 <span class="c-blue squig">Boulogne</span> 开始
       <span class="sub2">一个校区，先跑起来，用数据决定下一步。</span>
     </h1>
@@ -275,6 +289,97 @@
       <span style="font-size:1.3rem">📍</span>
       <span><b>目标人群：</b>Boulogne 的家庭。讲究、不少来自国际背景、愿意为孩子的教育花钱。</span>
     </div>
+  </div>
+</section>
+
+<!-- 市场 -->
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">市场 · 先看数据</div>
+    <h2>先看数据：<span class="hl">需求是真的</span></h2>
+    <p class="lead2">巴黎市内 + Boulogne 周边，「cours de chinois」每月约 <b>170</b> 次搜索，一年涨 <b>21%</b>；一次点击的市场价 <b>1,19–8,47 €</b>。每年开学季（8–9 月）冲到全年最高。</p>
+    <figure class="trend">
+      <img src="tendance-cours-chinois.png" alt="Boulogne-Billancourt 地区「cours de chinois」Google 月度搜索趋势" loading="lazy">
+      <figcaption>巴黎市内 + Boulogne 周边 · 「cours de chinois」Google 月度搜索量 —— 月均 <b>170</b>，近三月 <b>+21%</b>，同比 <b>+21%</b>，每年开学季规律飙升。</figcaption>
+    </figure>
+    <p class="lead2" style="margin-top:1.5rem">那 <b>170</b> 只是「cours de chinois」一个关键词。投流实际覆盖的是一整串相关搜索（cours de mandarin、école bilingue chinois、activités enfants Boulogne…）；再加上 <b>Google 地图 / 商家资料</b>（家长搜「附近」、刷地图刷到你，就是线上版的「路过门口」）和<b>自然排名的文章</b>（还在到处查、没决定的那批家长）。真正能碰到的，远不止那 170 个。</p>
+    <p class="lead2" style="margin-top:.8rem">而且搜索量小反而是好事：这点量你预算根本花不完，展示份额能做到接近满，长期霸第一位也花不了几个钱。难点不在曝光，在这几个高意图家长进来后转不转化。这取决于 Quality Score（关键词、广告、落地页三者的相关性，直接决定你的实际 CPC 和排名）、落地页做得好不好，还有地图和自然排名带来的本地发现。这部分就是我们花功夫的地方。</p>
+  </div>
+</section>
+
+<!-- 案例 MALAC（前移） -->
+<section class="tint-y">
+  <div class="wrap reveal">
+    <div class="kicker">真实案例 · 同类客户</div>
+    <h2><span class="c-red">MALAC</span> 语言学校案例，含<span class="hl">报名数据</span></h2>
+    <p class="lead2">MALAC 是巴黎一所少儿阿拉伯语 / 英语学校，跟你们几乎一模一样。我们给他们做了 Google 投流 + 谷歌排名自然优化。下面是他们后台的真实数据（2026 年 2 月截图，非演示）。</p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-big">≈ 2 €</div>
+        <div class="stat-cap">一个家长咨询的成本（11 500 € 换来 5 400 个咨询）</div>
+      </div>
+      <div class="stat-card r">
+        <div class="stat-big">报名 ×2</div>
+        <div class="stat-cap">后台完成报名数（dossier complété）接近翻倍</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big">CA +11 万 €</div>
+        <div class="stat-cap">营业额净增 ≈ 广告投入的 9 倍（同期）</div>
+      </div>
+    </div>
+
+    <p class="lead2" style="margin-top:1.7rem"><b>投入端</b> —— 我们给 MALAC 投放的 Google Ads（报名季 4–9 月）：</p>
+    <figure class="trend">
+      <img src="malac-gads.png" alt="MALAC Google Ads 报名季：成本 11.5k€、曝光 195k、点击 16.7k、转化 5.4k" loading="lazy">
+      <figcaption>Google Ads · 报名季（2025 年 4–9 月）—— 花 <b>11,5k €</b>，换来 <b>195k</b> 曝光、<b>16,7k</b> 点击、<b class="c-red">5 400 次转化</b>。点击率 8,6%，广告跟搜索意图对得上——钱没花在乱点上。</figcaption>
+    </figure>
+
+    <p class="lead2" style="margin-top:1.7rem"><b>产出端</b> —— 学校后台的真实结果：</p>
+
+    <div class="legend">
+      <span class="lg"><i class="dot" style="background:#4D8DF6"></i>蓝 = 2024/25（上学年）</span>
+      <span class="lg"><i class="dot" style="background:#E635E6"></i>粉 = 2025/26（本学年）</span>
+    </div>
+
+    <figure class="trend">
+      <img src="malac-dossiers.png" alt="MALAC 后台：完成报名 2024/25 与 2025/26 对比" loading="lazy">
+      <figcaption>MALAC 后台「完成报名（dossier complété）」—— 粉色 2025/26 比蓝色 2024/25 <b>接近翻倍</b>，开学季（9 月）尤其明显。</figcaption>
+    </figure>
+    <figure class="trend zoomfig">
+      <img src="malac-ca-2425.png" alt="MALAC 后台：累计营业额 2024/25" loading="lazy">
+      <span class="lens"><img src="zoom-ca-2425.png" alt="2024/2025 décembre 994 683 €"></span>
+      <figcaption><b>上学年 2024/25</b> —— 累计营业额（CA）到 12 月 <b>994 683 €</b>。</figcaption>
+    </figure>
+    <figure class="trend zoomfig">
+      <img src="malac-ca-2526.png" alt="MALAC 后台：累计营业额 2025/26" loading="lazy">
+      <span class="lens"><img src="zoom-ca-2526.png" alt="2025/2026 décembre 1 103 854 €"></span>
+      <figcaption><b>本学年 2025/26</b> —— 同期累计已达 <b class="c-red">1 103 854 €</b>，比上学年多 <b class="c-red">+11 万 €</b>，而且 25/26 这一年还在往上走。</figcaption>
+    </figure>
+
+    <p class="lead2" style="margin-top:1.5rem">MALAC 跟你们差不多，那边搜索量也不大，结果<b>报名翻了倍、营业额多了 11 万 €</b>。</p>
+  </div>
+</section>
+
+<!-- 给你的测算 -->
+<section>
+  <div class="wrap reveal">
+    <div class="kicker">给你的测算 · 假设都摆在桌面</div>
+    <h2>把同一套算法，<span class="hl">套到你的区域</span></h2>
+    <p class="lead2">上面是别人家的真实结果，下面按你区域的真实点击价，算一笔保守的账。每个假设都写明，你可以逐条挑战。</p>
+    <table class="est">
+      <tr><td>月广告预算（假设，随时可调）</td><td>400 €</td></tr>
+      <tr><td>你的量实际花得掉的<small>搜索就这么多，预算根本花不完——见上面「市场」</small></td><td>≈ 150–300 €</td></tr>
+      <tr><td>按你区域的真实点击价（1,19–8,47 €，取 2–3 €）</td><td>50–100 次点击 / 月</td></tr>
+      <tr><td>变成家长咨询<small>MALAC 实际做到 32%，这里按 15–25% 打折算</small></td><td>8–25 个 / 月</td></tr>
+      <tr><td>咨询转成报名<small>按 20–30% 假设——等你的真实成交率来校准</small></td><td>2–6 个新生 / 月</td></tr>
+      <tr class="hi"><td>算下来，一个新生的获客成本</td><td>≈ 50–100 €</td></tr>
+    </table>
+    <div class="roi">
+      <div class="big">≈ 2 900 €<small>首季（3 个月）总投入<br>建站 950 + 服务 3×450 + 广告 ≈600</small></div>
+      <div class="txt">按上面最保守的下限：3 个月 6 个新生 × 600 € 学费 = 3 600 €，一季就把全部投入盖掉。学生一般不止读一学期，之后每月 1–2 个新生，就是稳赚。</div>
+    </div>
+    <p class="roi-fine">测算按 Boost（450 €/月）算，学费 600 €/学期是真实数字。你的真实成交率、续读学期数一给到，这页就从「估算」变成「计划」。</p>
   </div>
 </section>
 
@@ -319,7 +424,7 @@
   <div class="wrap reveal">
     <div class="kicker">网页制作 · 第一步</div>
     <h2>先把官网做好（<span class="hl">基础，必做</span>）</h2>
-    <p class="lead2">不管做不做营销，先得有个像样的官网。你们内容不多、功能不复杂，所以一次就能搞定。</p>
+    <p class="lead2">不管做不做营销，先得有个像样的官网：课程讲清楚、报名收得进来、手机上打开不掉链子。做出来就是你的资产。</p>
 
     <div class="webcard">
       <div class="webhead">
@@ -413,19 +518,10 @@
       <span class="x">💡</span>
       <span>以上是服务费。谷歌投流的广告预算直接付给 Google（你自己的账户），与服务费分开。按月付费，随时升降。</span>
     </div>
-  </div>
-</section>
-
-<!-- 回本 -->
-<section>
-  <div class="wrap reveal">
-    <div class="kicker">回本</div>
-    <h2>1–2 个新生，<span class="c-red">就回本</span></h2>
-    <div class="roi">
-      <div class="big">600 €<small>一个学生 · 一学期学费</small></div>
-      <div class="txt">而且学生通常读不止一个学期，读下来是这个数的好几倍。首月连建站，<b>招到 1–2 个就回本</b>；之后每月 1 个，就是稳赚。多校区档也一样：全部校区一个月凑够 1–2 个，就盖过 1000 €。</div>
+    <div class="tiers-note" style="margin-top:.9rem">
+      <span class="x">🔧</span>
+      <span>这些配置你自己也能弄。但配置只占两成，剩下八成是每个月的调优：否定词、出价、Quality Score 把真实点击价压下来、落地页一版一版测。MALAC 那个 8,6% 的点击率、2 € 一个咨询，就是这八成磨出来的。而且做出来的全归你——网站、内容、商家资料、数据，不合作也带得走。</span>
     </div>
-    <p class="roi-fine">学费 600 €/学期是真实数字。学生读得越久，单个学生的总价值越高。</p>
   </div>
 </section>
 
@@ -458,79 +554,27 @@
       <span class="fstep">咨询 <b>▢</b></span><span class="farrow">→</span>
       <span class="fstep">报名 <b style="color:var(--red)">▢</b></span>
       <span class="fcost">单报名成本 ▢ €</span>
-      <span class="fnote">（月报格式 · 每校区一份 · 数字按实际跑出来填）</span>
-    </div>
-  </div>
-</section>
-
-<!-- 真实案例 MALAC -->
-<section class="tint-y">
-  <div class="wrap reveal">
-    <div class="kicker">真实案例 · 同类客户</div>
-    <h2><span class="c-red">MALAC</span> 语言学校案例，含<span class="hl">报名数据</span></h2>
-    <p class="lead2">MALAC 是巴黎一所少儿阿拉伯语 / 英语学校，跟你们几乎一模一样。我们给他们做了 Google 投流 + 谷歌排名自然优化。下面是他们后台的真实数据（2026 年 2 月截图，非演示）。</p>
-
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-big">5 400 转化</div>
-        <div class="stat-cap">11,5k € Google Ads 投入（报名季 4–9 月）</div>
-      </div>
-      <div class="stat-card r">
-        <div class="stat-big">报名 ×2</div>
-        <div class="stat-cap">后台完成报名数（dossier complété）接近翻倍</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-big">CA +11 万 €</div>
-        <div class="stat-cap">营业额净增（到 12 月，且仍在上升）</div>
-      </div>
+      <span class="fnote">（月报格式 · 每校区一份 · MALAC 那份真实的你在上面看过，你的按实际跑量填）</span>
     </div>
 
-    <p class="lead2" style="margin-top:1.7rem"><b>投入端</b> —— 我们给 MALAC 投放的 Google Ads（报名季 4–9 月）：</p>
-    <figure class="trend">
-      <img src="malac-gads.png" alt="MALAC Google Ads 报名季：成本 11.5k€、曝光 195k、点击 16.7k、转化 5.4k" loading="lazy">
-      <figcaption>Google Ads · 报名季（2025 年 4–9 月）—— 花 <b>11,5k €</b>，换来 <b>195k</b> 曝光、<b>16,7k</b> 点击、<b class="c-red">5 400 次转化</b>。</figcaption>
-    </figure>
-
-    <p class="lead2" style="margin-top:1.7rem"><b>产出端</b> —— 学校后台的真实结果：</p>
-
-    <div class="legend">
-      <span class="lg"><i class="dot" style="background:#4D8DF6"></i>蓝 = 2024/25（上学年）</span>
-      <span class="lg"><i class="dot" style="background:#E635E6"></i>粉 = 2025/26（本学年）</span>
+    <div class="risks">
+      <h3>丑话说在前面</h3>
+      <ul class="tfeat">
+        <li><b>第一个月是学习期</b>：campagne 要喂数据，别指望第一周就爆。真正看结果，在 90 天。</li>
+        <li><b>量有天花板</b>：一个区的搜索就那么多。所以投流、地图、自然排名一起做，不把宝押在一条渠道上。</li>
+        <li><b>接待在你</b>：广告把家长送到门口。咨询 24 小时内回上、有试听课接住，成交才立得住。</li>
+        <li><b>随时能停</b>：按月付费。网站、内容、商家资料、数据都归你，不合作也带得走。90 天一起看数字，继续不继续你说了算。</li>
+      </ul>
     </div>
-
-    <figure class="trend">
-      <img src="malac-dossiers.png" alt="MALAC 后台：完成报名 2024/25 与 2025/26 对比" loading="lazy">
-      <figcaption>MALAC 后台「完成报名（dossier complété）」—— 粉色 2025/26 比蓝色 2024/25 <b>接近翻倍</b>，开学季（9 月）尤其明显。</figcaption>
-    </figure>
-    <figure class="trend zoomfig">
-      <img src="malac-ca-2425.png" alt="MALAC 后台：累计营业额 2024/25" loading="lazy">
-      <span class="lens"><img src="zoom-ca-2425.png" alt="2024/2025 décembre 994 683 €"></span>
-      <figcaption><b>上学年 2024/25</b> —— 累计营业额（CA）到 12 月 <b>994 683 €</b>。</figcaption>
-    </figure>
-    <figure class="trend zoomfig">
-      <img src="malac-ca-2526.png" alt="MALAC 后台：累计营业额 2025/26" loading="lazy">
-      <span class="lens"><img src="zoom-ca-2526.png" alt="2025/2026 décembre 1 103 854 €"></span>
-      <figcaption><b>本学年 2025/26</b> —— 同期累计已达 <b class="c-red">1 103 854 €</b>，比上学年多 <b class="c-red">+11 万 €</b>，而且 25/26 这一年还在往上走。</figcaption>
-    </figure>
-
-    <p class="lead2" style="margin-top:1.5rem">MALAC 跟你们差不多，那边搜索量也不大，结果<b>报名翻了倍、营业额多了 11 万 €</b>。</p>
   </div>
 </section>
 
 <!-- 时机 -->
-<section class="tint">
+<section>
   <div class="wrap reveal">
-    <div class="kicker">时机 · 别等</div>
-    <h2>现在，正是<span class="hl">投流上车</span>的最佳时机</h2>
-    <p class="lead2">投流效果是季节性的。巴黎市内 + Boulogne 周边的「cours de chinois」搜索，每年开学季（8–9 月）规律性飙到全年最高峰——而现在搜索量正一路往上爬。趁高峰前把账户跑热，等家长涌进来时你已经排在最前面；等峰值才开始，campagne 还在学习期，就错过了这一波。</p>
-    <figure class="trend">
-      <img src="tendance-cours-chinois.png" alt="Boulogne-Billancourt 地区「cours de chinois」Google 月度搜索趋势" loading="lazy">
-      <figcaption>巴黎市内 + Boulogne 周边 · 「cours de chinois」Google 月度搜索量 —— 月均 <b>170</b>，近三月 <b>+21%</b>，同比 <b>+21%</b>，每年开学季规律飙升。</figcaption>
-    </figure>
-
-    <p class="lead2" style="margin-top:1.5rem">那 <b>170</b> 只是「cours de chinois」一个关键词。投流实际覆盖的是一整串相关搜索（cours de mandarin、école bilingue chinois、activités enfants Boulogne…）；再加上 <b>Google 地图 / 商家资料</b>（家长搜「附近」、刷地图刷到你，就是线上版的「路过门口」）和<b>自然排名的文章</b>（还在到处查、没决定的那批家长）。真正能碰到的，远不止那 170 个。</p>
-    <p class="lead2" style="margin-top:.8rem">而且搜索量小反而是好事：这点量你预算根本花不完，展示份额能做到接近满，长期霸第一位也花不了几个钱。难点不在曝光，在这几个高意图家长进来后转不转化。这取决于 Quality Score（关键词、广告、落地页三者的相关性，直接决定你的实际 CPC 和排名）、落地页做得好不好，还有地图和自然排名带来的本地发现。这部分就是我们花功夫的地方。</p>
-    <p class="lead2" style="margin-top:.8rem">再说这事也不靠大流量。一个学生光一学期就 <b>600 €</b> 学费，读下来更多，一个月招到 <b>1 个</b>就够覆盖服务费。搜索量大不大不重要，重要的是能稳定出报名、你随时看得清楚。</p>
+    <div class="kicker">时机</div>
+    <h2>要赶开学季，<span class="hl">7 月就得动</span></h2>
+    <p class="lead2">建站约 2 周，campagne 学习期又要 3–4 周。现在是 7 月初：月中启动，8 月底家长集中开搜的时候（上面「市场」那张图的年度最高峰），你已经排在最前面。等 9 月才动手，最肥的一波就过了。</p>
   </div>
 </section>
 
@@ -549,7 +593,7 @@
 <footer>
   <div class="foot-in">
     <span class="komo"><i>K</i><i>O</i><i>M</i><i>O</i></span>
-    <span>三语宝贝 · Les Petites Trilingues · 2026 年 6 月</span>
+    <span>三语宝贝 · Les Petites Trilingues · 2026 年 7 月</span>
   </div>
 </footer>
 
