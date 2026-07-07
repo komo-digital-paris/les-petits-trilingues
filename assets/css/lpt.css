@@ -68,6 +68,52 @@ button { font: inherit; cursor: pointer; }
 .section { padding-top: var(--sec-pad); }
 .section--pb { padding-bottom: var(--sec-pad); }
 
+/* ---------- bandes de couleur + dividers ludiques ----------
+   Quelques sections reçoivent un fond doux ; la transition avec les
+   sections blanches se fait par un divider en vague ou en feston
+   (pseudo-éléments masqués par un SVG, background hérité de la bande
+   → une seule forme sert pour toutes les couleurs). */
+.band {
+  position: relative;
+  padding-top: var(--sec-pad);
+  padding-bottom: var(--sec-pad);
+  margin: 48px 0;
+}
+.band--yellow { background: var(--yellow-soft); }
+.band--blue   { background: var(--blue-soft); }
+.band--red    { background: var(--red-soft); }
+
+.band::before,
+.band::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 44px;
+  background: inherit;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,34 C150,70 260,-6 420,26 C560,54 660,2 810,28 C950,52 1070,10 1200,36 L1200,60 L0,60 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,34 C150,70 260,-6 420,26 C560,54 660,2 810,28 C950,52 1070,10 1200,36 L1200,60 L0,60 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+}
+.band::before { top: -43px; }
+.band::after  { bottom: -43px; transform: scaleY(-1); }
+
+/* variante feston (petits arcs joufflus, très "école") */
+.band--scallop::before,
+.band--scallop::after {
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,60 L0,42 Q75,-14 150,42 Q225,-14 300,42 Q375,-14 450,42 Q525,-14 600,42 Q675,-14 750,42 Q825,-14 900,42 Q975,-14 1050,42 Q1125,-14 1200,42 L1200,60 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'><path d='M0,60 L0,42 Q75,-14 150,42 Q225,-14 300,42 Q375,-14 450,42 Q525,-14 600,42 Q675,-14 750,42 Q825,-14 900,42 Q975,-14 1050,42 Q1125,-14 1200,42 L1200,60 Z' fill='black'/></svg>") center / 100% 100% no-repeat;
+}
+
+/* sur bande colorée, les cartes crème passent en blanc pour rester lisibles */
+.band .activity-card,
+.band .faq-item,
+.band .lp-course,
+.band .lp-testi-card,
+.band .trust-card,
+.band .teacher-card,
+.band .prog-card { background: #fff; }
+.band .time-label { box-shadow: var(--shadow-sm); }
+.band .faq-q .plus { background: var(--cream); }
+
 /* ---------- type scale (façon template : display énorme, tracking serré) */
 .display-1 {
   font-size: clamp(2.7rem, 7vw, 6.2rem);
