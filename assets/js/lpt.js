@@ -1,4 +1,5 @@
-/* Les Petits Trilingues — interactions (nav mobile, carrousel, FAQ, lead form) */
+/* Les Petits Trilingues — interactions
+   (nav mobile, carrousel, FAQ, tabs témoignages, lead form) */
 (function () {
   'use strict';
 
@@ -21,7 +22,7 @@
   if (track && prev && next) {
     var pitch = function () {
       var card = track.querySelector('.prog-card');
-      if (!card) return 360;
+      if (!card) return 396;
       var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 24;
       return card.getBoundingClientRect().width + gap;
     };
@@ -39,7 +40,6 @@
     if (!q) return;
     q.addEventListener('click', function () {
       var isOpen = item.classList.contains('is-open');
-      // Fermer les autres du même bloc
       var list = item.closest('.faq-list');
       if (list) {
         list.querySelectorAll('.faq-item.is-open').forEach(function (o) {
@@ -49,6 +49,22 @@
       if (!isOpen) item.classList.add('is-open');
     });
   });
+
+  /* ---------- tabs témoignages (home) ---------- */
+  var testiBtns = document.querySelectorAll('[data-testi-btn]');
+  if (testiBtns.length) {
+    testiBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var idx = btn.getAttribute('data-testi-btn');
+        document.querySelectorAll('[data-testi]').forEach(function (item) {
+          item.classList.toggle('is-active', item.getAttribute('data-testi') === idx);
+        });
+        testiBtns.forEach(function (b) {
+          b.classList.toggle('is-active', b === btn);
+        });
+      });
+    });
+  }
 
   /* ---------- formulaire lead (landing) ----------
      Démo : soumission simulée côté client.
@@ -60,7 +76,6 @@
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      // validation minimale
       var name = document.getElementById('lf-name');
       var phone = document.getElementById('lf-phone');
       var age = document.getElementById('lf-age');
