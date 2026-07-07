@@ -171,6 +171,13 @@ button { font: inherit; cursor: pointer; }
 .sticker--yellow { background: var(--yellow); color: var(--ink); }
 .sticker--ink { background: var(--ink); }
 
+/* Les vignettes vivent souvent DANS un titre au tracking très serré
+   (-.03/-.04em hérité) : on neutralise pour que les lettres respirent. */
+.sticker, .chip, .time-label, .lp-loc, .campus-chips .chips-label {
+  letter-spacing: .02em;
+  word-spacing: .08em;
+}
+
 /* ---------- boutons (pill + pastille icône à gauche) ---------- */
 .button {
   display: inline-flex;
@@ -1170,6 +1177,78 @@ button { font: inherit; cursor: pointer; }
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+}
+
+/* =====================================================================
+   MOBILE POLISH
+   ===================================================================== */
+
+/* Les stickers de titre de section sont positionnés en absolu via des
+   styles inline (offsets desktop) : sur mobile ils chevauchent le texte.
+   On les repasse en flux, posés sous le titre — !important nécessaire
+   pour battre les styles inline. */
+@media (max-width: 640px) {
+  .sec-title { display: block; }
+  .sec-title .sticker {
+    position: static !important;
+    display: inline-block;
+    margin: 12px 0 0 !important;
+    transform: rotate(-3deg) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .choose-copy .sticker {
+    position: static;
+    display: inline-block;
+    transform: rotate(-4deg);
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  /* stickers du hero plus discrets, titre de la place */
+  .hero-title .sticker { font-size: .85rem; padding: 8px 16px 9px; }
+  /* tête du carrousel : titre au-dessus, flèches en dessous */
+  .prog-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+}
+
+@media (max-width: 560px) {
+  .container { padding: 0 20px; }
+
+  /* navbar compacte : logo seul (sans wordmark), CTA réduit */
+  .nav-inner { gap: 12px; height: 70px; }
+  .nav-links { inset: 70px 0 auto 0; }
+  .brand { font-size: 0; gap: 0; }
+  .nav-phone { display: none; }
+  .nav .button { padding: 8px 16px 8px 8px; font-size: .9rem; }
+  .nav .button .bico { width: 32px; height: 32px; }
+
+  /* hero : on ne garde que le sticker du bas (les latéraux mangent
+     le titre sur petit écran, comme sur le template d'origine) —
+     et on le décale sous le titre pour qu'il ne couvre pas le texte */
+  .hero-stick-left, .hero-stick-right { display: none; }
+  .hero-title { margin-bottom: 58px; }
+  .hero-stick-mid { bottom: -46px; }
+  .display-1 { font-size: clamp(2.2rem, 10.5vw, 2.9rem); }
+  .hero-meta { font-size: .85rem; gap: 10px; }
+
+  /* dividers moins hauts pour ne pas manger l'écran */
+  .band { margin: 30px 0; }
+  .band::before, .band::after { height: 28px; }
+  .band::before { top: -27px; }
+  .band::after { bottom: -27px; }
+
+  /* CTA : bouton + téléphone empilés proprement */
+  .cta-left > div { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .cta-left .tel { margin-left: 0; padding: 10px 0; }
+
+  .testi-panel { text-align: left; }
+  .testi-tabs { justify-content: flex-start; }
+  .testi-tabs button { width: 48px; height: 48px; }
+
+  .form-card { padding: 28px 22px 26px; }
+  .stats-value { min-width: 120px; }
 }
 
 /* sparkles décoratifs */
