@@ -70,10 +70,10 @@ button { font: inherit; cursor: pointer; }
 
 /* ---------- type scale (façon template : display énorme, tracking serré) */
 .display-1 {
-  font-size: clamp(3.2rem, 10.5vw, 9.5rem);
+  font-size: clamp(2.7rem, 7vw, 6.2rem);
   font-weight: 900;
-  line-height: .98;
-  letter-spacing: -.045em;
+  line-height: 1;
+  letter-spacing: -.04em;
 }
 .heading-2 {
   font-size: clamp(2.3rem, 5.6vw, 4.4rem);
@@ -1133,7 +1133,129 @@ button { font: inherit; cursor: pointer; }
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-10px) rotate(12deg); }
 }
+
+/* =====================================================================
+   ANIMATIONS
+   ===================================================================== */
+
+/* --- entrée du hero (au chargement) --- */
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pop-in {
+  0%   { opacity: 0; transform: scale(.3) rotate(var(--rot, 0deg)); }
+  70%  { opacity: 1; transform: scale(1.15) rotate(var(--rot, 0deg)); }
+  100% { opacity: 1; transform: scale(1) rotate(var(--rot, 0deg)); }
+}
+@keyframes photo-in {
+  from { opacity: 0; transform: translateY(40px) scale(.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-title { animation: rise-in .8s cubic-bezier(.22, .8, .3, 1) both; }
+.hero-media { animation: photo-in 1s cubic-bezier(.22, .8, .3, 1) .25s both; }
+.hero-meta  { animation: rise-in .8s cubic-bezier(.22, .8, .3, 1) .55s both; }
+
+/* stickers du hero : pop avec rebond, en gardant leur rotation propre */
+.hero-stick-left  { --rot: -5.75deg; animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .5s both; }
+.hero-stick-right { --rot: 32deg;    animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .68s both; }
+.hero-stick-mid   { --rot: -15deg;   animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .86s both; }
+/* le transform du keyframe remplace celui de base : re-applique translateX du mid */
+.hero-stick-mid { transform: translateX(-55%) rotate(-15deg); }
+@keyframes pop-in-mid {
+  0%   { opacity: 0; transform: translateX(-55%) scale(.3) rotate(-15deg); }
+  70%  { opacity: 1; transform: translateX(-55%) scale(1.15) rotate(-15deg); }
+  100% { opacity: 1; transform: translateX(-55%) scale(1) rotate(-15deg); }
+}
+.hero-stick-mid { animation-name: pop-in-mid; }
+
+/* wobble léger permanent sur les stickers du hero, après le pop */
+@keyframes wobble {
+  0%, 100% { rotate: 0deg; }
+  25%      { rotate: 2.4deg; }
+  75%      { rotate: -2.4deg; }
+}
+.hero-title .sticker { animation-fill-mode: both; }
+
+/* --- reveal au scroll (classes posées par lpt.js) --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s cubic-bezier(.22, .8, .3, 1), transform .7s cubic-bezier(.22, .8, .3, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-in { opacity: 1; transform: translateY(0); }
+
+/* variante pop pour les stickers de section */
+.sec-title .sticker {
+  transition: opacity .5s cubic-bezier(.34, 1.56, .64, 1), scale .5s cubic-bezier(.34, 1.56, .64, 1);
+  transition-delay: .25s;
+  opacity: 0;
+  scale: .3;
+}
+.sec-title.is-in .sticker,
+.is-in .sec-title .sticker,
+.reveal.is-in .sticker { opacity: 1; scale: 1; }
+/* stickers positionnés dans des blocs révélés (story, stats, cta, form) */
+.story-copy .sticker, .choose-copy .sticker, .cta-left .sticker,
+.form-card .sticker, .campus-info .sticker {
+  transition: opacity .5s cubic-bezier(.34, 1.56, .64, 1), scale .5s cubic-bezier(.34, 1.56, .64, 1);
+  transition-delay: .3s;
+  opacity: 0;
+  scale: .3;
+}
+.reveal.is-in.story-copy .sticker, .reveal.is-in.choose-copy .sticker,
+.reveal.is-in.cta-left .sticker, .reveal.is-in.form-card .sticker,
+.reveal.is-in.campus-info .sticker,
+.reveal.is-in .story-copy .sticker, .reveal.is-in .choose-copy .sticker,
+.reveal.is-in .cta-left .sticker, .reveal.is-in .form-card .sticker,
+.reveal.is-in .campus-info .sticker { opacity: 1; scale: 1; }
+
+/* --- zoom doux des images dans les cartes au hover --- */
+.trust-card img.photo,
+.prog-card img,
+.teacher-card img,
+.activity-card img { transition: scale .45s cubic-bezier(.22, .8, .3, 1); }
+.trust-card, .prog-card, .teacher-card { overflow: hidden; }
+.trust-card:hover img.photo,
+.prog-card:hover img,
+.teacher-card:hover img { scale: 1.05; }
+
+/* les cartes penchent légèrement au hover, direction alternée */
+.trust-card:hover, .teacher-card:hover { rotate: -.6deg; }
+.trust-card:nth-child(2n):hover, .teacher-card:nth-child(2n):hover { rotate: .6deg; }
+.prog-card:hover { rotate: .4deg; }
+
+/* --- boutons : la pastille-icône glisse et l'icône pointe --- */
+.button .bico { transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), background .2s, color .2s; }
+.button:hover .bico { transform: translateX(4px) rotate(-8deg); }
+.button:active { transform: scale(.97); }
+
+/* --- chips campus : petit saut au hover de la carte --- */
+.prog-card:hover .chip { animation: chip-hop .45s cubic-bezier(.34, 1.56, .64, 1) both; }
+.prog-card:hover .chip:nth-child(3) { animation-delay: .04s; }
+.prog-card:hover .chip:nth-child(4) { animation-delay: .08s; }
+.prog-card:hover .chip:nth-child(5) { animation-delay: .12s; }
+.prog-card:hover .chip:nth-child(6) { animation-delay: .16s; }
+@keyframes chip-hop {
+  0%, 100% { transform: translateY(0); }
+  45%      { transform: translateY(-4px); }
+}
+
+/* --- tabs témoignages : fondu du contenu --- */
+.testi-item.is-active { animation: rise-in .5s cubic-bezier(.22, .8, .3, 1) both; }
+
+/* --- FAQ : le + tourne déjà ; on ajoute un hover --- */
+.faq-q:hover .plus { background: var(--yellow); }
+
+/* --- reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
-  .spark { animation: none; }
-  * { transition: none !important; }
+  .spark, .hero-title, .hero-media, .hero-meta,
+  .hero-title .sticker, .testi-item.is-active { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .sec-title .sticker, .story-copy .sticker, .choose-copy .sticker,
+  .cta-left .sticker, .form-card .sticker, .campus-info .sticker {
+    opacity: 1; scale: 1; transition: none;
+  }
+  * { transition-duration: .01ms !important; }
 }
