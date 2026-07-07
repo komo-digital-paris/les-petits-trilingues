@@ -1,542 +1,560 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KOMO × Les Petites Trilingues 三语宝贝 — Plan de croissance</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎒</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --blue:#2A6BE8;
-    --red:#FF5252;
-    --yellow:#FFC831;
-    --white:#FFFFFF;
-    --ink:#1D2B64;            /* bleu très foncé pour le texte */
-    --paper:#FFFEFA;
-    --soft-blue:#EDF3FF;
-    --soft-yellow:#FFF6DC;
-    --soft-red:#FFECEC;
-    --head:'Baloo 2','Arial Rounded MT Bold','PingFang SC',sans-serif;
-    --body:'Nunito','Avenir Next','PingFang SC',sans-serif;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;overflow:hidden}
-  body{
-    background:var(--paper);
-    font-family:var(--body);
-    color:var(--ink);
-    user-select:none;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  /* ===== cadre & décor ===== */
-  .topbar{position:fixed;top:0;left:0;right:0;height:10px;z-index:60;
-    background:linear-gradient(90deg,var(--blue) 0 33.4%,var(--red) 33.4% 66.7%,var(--yellow) 66.7% 100%)}
-  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .blob{position:absolute;border-radius:50%}
-  .blob.sun{width:36vmin;height:36vmin;right:-12vmin;top:-12vmin;background:var(--yellow);opacity:.9}
-  .blob.donut{width:30vmin;height:30vmin;left:-11vmin;bottom:-11vmin;border:3.4vmin solid var(--blue);opacity:.85}
-  .blob.cherry{width:7vmin;height:7vmin;left:6vmin;top:14vmin;background:var(--red);opacity:.85}
-  .blob.pea{width:4.5vmin;height:4.5vmin;right:9vmin;bottom:10vmin;background:var(--blue);opacity:.8}
-  .confetti{position:absolute;display:block;border-radius:3px;animation:floaty var(--dur,7s) ease-in-out var(--del,0s) infinite alternate}
-  .confetti.round{border-radius:50%}
-  .star{position:absolute;font-size:2.1vmin;animation:floaty var(--dur,8s) ease-in-out var(--del,0s) infinite alternate}
-  @keyframes floaty{
-    from{transform:translateY(-1.4vmin) rotate(var(--rot,8deg))}
-    to{transform:translateY(1.6vmin) rotate(calc(var(--rot,8deg) * -1))}
-  }
-
-  /* ===== marque KOMO ===== */
-  .komo{display:inline-flex;gap:.18em;font-family:var(--head);font-weight:800;line-height:1}
-  .komo i{font-style:normal;display:grid;place-items:center;width:1.55em;height:1.55em;border-radius:.34em;
-    border:.13em solid var(--ink);box-shadow:.16em .16em 0 var(--ink);color:#fff}
-  .komo i:nth-child(1){background:var(--blue);transform:rotate(-5deg)}
-  .komo i:nth-child(2){background:var(--red);transform:rotate(4deg)}
-  .komo i:nth-child(3){background:var(--yellow);color:var(--ink);transform:rotate(-3deg)}
-  .komo i:nth-child(4){background:var(--blue);transform:rotate(5deg)}
-
-  .brand{position:fixed;top:24px;left:26px;z-index:55;display:flex;align-items:center;gap:.7rem;
-    font-weight:900;font-size:.85rem;transition:opacity .4s}
-  .brand .komo{font-size:.95rem}
-  .brand small{font-weight:800;color:var(--ink);opacity:.75;letter-spacing:.02em}
-  body[data-slide="0"] .brand{opacity:0}
-
-  /* ===== navigation ===== */
-  .dots{position:fixed;bottom:1.15rem;left:50%;transform:translateX(-50%);display:flex;gap:.55rem;z-index:55;pointer-events:none}
-  .dot{width:11px;height:11px;border-radius:50%;border:2.5px solid var(--ink);background:#fff;transition:.3s}
-  .dot.on{background:var(--yellow);transform:scale(1.35)}
-  .pagenum{position:fixed;bottom:1rem;right:1.3rem;z-index:55;font-weight:900;font-size:.8rem;opacity:.55}
-
-  /* ===== slides ===== */
-  main{position:fixed;inset:0;z-index:1}
-  .slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:4.5rem 4vw 4.2rem;text-align:center;opacity:0;pointer-events:none;
-    transform:translateX(13%) scale(.95) rotate(1.5deg);
-    transition:transform .6s cubic-bezier(.3,1.25,.45,1),opacity .42s ease}
-  .slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
-  .slide.prev{transform:translateX(-13%) scale(.95) rotate(-1.5deg)}
-
-  .pop{opacity:0;transform:translateY(28px) scale(.93) rotate(var(--rot,0deg))}
-  .slide.active .pop{opacity:1;transform:translateY(0) scale(1) rotate(var(--rot,0deg));
-    transition:opacity .5s ease var(--d,0s),transform .6s cubic-bezier(.3,1.45,.45,1) var(--d,0s)}
-
-  h1{font-family:var(--head);font-weight:800;font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.05}
-  h2{font-family:var(--head);font-weight:800;font-size:clamp(1.9rem,4.4vw,3.3rem);line-height:1.12;margin-bottom:clamp(1.2rem,3vh,2.2rem)}
-  .c-blue{color:var(--blue)}
-  .c-red{color:var(--red)}
-  .squig{text-decoration:underline wavy var(--yellow);text-decoration-thickness:.14em;text-underline-offset:.18em}
-  .squig-r{text-decoration:underline wavy var(--red);text-decoration-thickness:.14em;text-underline-offset:.18em}
-  .hl{background:linear-gradient(transparent 58%,var(--yellow) 58%);padding:0 .12em}
-  .sub{font-size:clamp(1rem,1.9vw,1.35rem);font-weight:800;opacity:.85;margin-bottom:clamp(1.2rem,3vh,2rem)}
-
-  .lvl{display:inline-grid;place-items:center;width:1.45em;height:1.45em;border-radius:50%;
-    color:#fff;border:.09em solid var(--ink);box-shadow:.1em .1em 0 var(--ink);
-    font-size:.72em;vertical-align:.08em;transform:rotate(-7deg);margin-right:.3em;font-family:var(--head)}
-  .lvl.b{background:var(--blue)} .lvl.r{background:var(--red)} .lvl.y{background:var(--yellow);color:var(--ink)}
-
-  /* stickers / cartes */
-  .card{background:#fff;border:3px solid var(--ink);border-radius:24px;
-    box-shadow:8px 8px 0 var(--shadow,var(--yellow));padding:clamp(1.1rem,2.2vw,1.7rem)}
-  .sh-b{--shadow:var(--blue)} .sh-r{--shadow:var(--red)} .sh-y{--shadow:var(--yellow)}
-  .cards{display:flex;gap:clamp(1rem,2.4vw,2rem);flex-wrap:wrap;justify-content:center;align-items:stretch;
-    width:min(1240px,96%)}
-  .cards .card{flex:1 1 0;min-width:250px;max-width:380px}
-  .card .big{font-size:clamp(2.4rem,4.5vw,3.4rem);line-height:1;margin-bottom:.5rem}
-  .card h3{font-family:var(--head);font-weight:800;font-size:clamp(1.2rem,2.2vw,1.6rem);margin-bottom:.45rem}
-  .card p{font-weight:700;font-size:clamp(.92rem,1.5vw,1.08rem);opacity:.85;line-height:1.45}
-  .tags{display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem}
-  .tag{background:var(--soft-blue);border:2px solid var(--ink);border-radius:999px;
-    padding:.18em .75em;font-weight:900;font-size:clamp(.7rem,1.2vw,.85rem)}
-  .tag.y{background:var(--soft-yellow)} .tag.r{background:var(--soft-red)}
-
-  .sticker{display:inline-block;background:var(--yellow);border:3px solid var(--ink);border-radius:18px;
-    box-shadow:7px 7px 0 var(--ink);padding:.8em 1.4em;font-family:var(--head);font-weight:800;
-    font-size:clamp(1rem,2vw,1.4rem);line-height:1.3}
-  .sticker.w{background:#fff;box-shadow:7px 7px 0 var(--blue)}
-
-  .punch{margin-top:clamp(1.3rem,3.4vh,2.4rem)}
-
-  /* bulles trilingues */
-  .bubbles{display:flex;gap:clamp(.7rem,2vw,1.4rem);justify-content:center;margin-bottom:clamp(1.4rem,3.5vh,2.4rem);flex-wrap:wrap}
-  .bub{font-family:var(--head);font-weight:800;font-size:clamp(1.05rem,2.3vw,1.6rem);
-    padding:.45em 1.1em;border-radius:999px;border:3px solid var(--ink);color:#fff;
-    animation:bounce 2.6s ease-in-out var(--del,0s) infinite}
-  .bub.b{background:var(--blue);--rot:-5deg;box-shadow:5px 5px 0 var(--yellow)}
-  .bub.r{background:var(--red);--rot:4deg;box-shadow:5px 5px 0 var(--blue)}
-  .bub.y{background:var(--yellow);color:var(--ink);--rot:-3deg;box-shadow:5px 5px 0 var(--red)}
-  @keyframes bounce{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-9px) rotate(var(--rot,0deg))}}
-
-  .hint{position:absolute;bottom:3.4rem;left:50%;transform:translateX(-50%);
-    background:#fff;border:3px solid var(--ink);border-radius:999px;padding:.5em 1.3em;
-    font-weight:900;font-size:.95rem;box-shadow:5px 5px 0 var(--blue);animation:pulse 1.8s ease-in-out infinite}
-  @keyframes pulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06)}}
-  .meta{margin-top:1.6rem;font-weight:900;opacity:.6;letter-spacing:.06em;text-transform:uppercase;font-size:.85rem}
-
-  /* slide 3 : navigateur + nuage d'offres */
-  .duo{display:flex;gap:clamp(1.2rem,3vw,2.6rem);align-items:center;justify-content:center;flex-wrap:wrap;width:min(1240px,96%)}
-  .browser{flex:1 1 340px;max-width:470px;background:#fff;border:3px solid var(--ink);border-radius:22px;
-    box-shadow:8px 8px 0 var(--red);overflow:hidden;text-align:left}
-  .browser-top{display:flex;align-items:center;gap:.45rem;padding:.65rem .9rem;border-bottom:3px solid var(--ink);background:var(--soft-blue)}
-  .bdot{width:.8rem;height:.8rem;border-radius:50%;border:2px solid var(--ink)}
-  .bdot.b{background:var(--blue)}.bdot.r{background:var(--red)}.bdot.y{background:var(--yellow)}
-  .url{margin-left:.4rem;flex:1;background:#fff;border:2px solid var(--ink);border-radius:999px;
-    padding:.15em .8em;font-weight:800;font-size:.78rem;opacity:.85}
-  .browser-body{padding:1.1rem 1.2rem 1.3rem}
-  .lonely{display:inline-block;background:var(--soft-yellow);border:2.5px solid var(--ink);border-radius:999px;
-    padding:.3em .9em;font-weight:900;font-size:.95rem;margin-bottom:.9rem}
-  .skl{height:.7rem;border-radius:999px;background:#E8EAF2;margin:.55rem 0}
-  .skl.s1{width:88%}.skl.s2{width:70%}.skl.s3{width:79%}.skl.s4{width:52%}
-  .caption{margin-top:.8rem;font-weight:900;font-size:.92rem;opacity:.7}
-  .cloud{flex:1 1 340px;max-width:520px;display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;align-content:center}
-  .chip{background:#fff;border:3px solid var(--ink);border-radius:999px;padding:.42em 1em;
-    font-weight:900;font-size:clamp(.85rem,1.6vw,1.05rem);box-shadow:4px 4px 0 var(--chipc,var(--blue))}
-  .chip.r{--chipc:var(--red)} .chip.y{--chipc:var(--yellow)}
-
-  /* slide 5 : google */
-  .search{display:flex;align-items:center;gap:.7rem;background:#fff;border:3px solid var(--ink);
-    border-radius:999px;padding:.75rem 1.2rem;box-shadow:6px 6px 0 var(--blue);
-    font-weight:800;font-size:clamp(.9rem,1.6vw,1.1rem);text-align:left}
-  .search .q::after{content:"|";animation:blink 1s steps(1) infinite;color:var(--blue);font-weight:900}
-  @keyframes blink{50%{opacity:0}}
-  .result{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:6px 6px 0 var(--yellow);
-    padding:1rem 1.2rem;text-align:left}
-  .annonce{display:inline-block;background:var(--yellow);border:2px solid var(--ink);border-radius:6px;
-    padding:.05em .5em;font-size:.72rem;font-weight:900;margin-bottom:.3rem}
-  .result h4{font-family:var(--head);font-size:clamp(1.05rem,1.9vw,1.35rem);color:var(--blue)}
-  .result p{font-weight:700;font-size:clamp(.85rem,1.45vw,1rem);opacity:.85}
-  .stat{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;
-    font-family:var(--head);font-weight:800;font-size:clamp(1.5rem,3vw,2.3rem);color:var(--blue);margin:.5rem 0 .3rem}
-  .stat .arr{color:var(--ink);font-size:.8em}
-  .roas{position:absolute;top:-1.1rem;right:-.9rem;background:var(--yellow);border:3px solid var(--ink);
-    border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:.25em .6em;font-family:var(--head);
-    font-weight:800;font-size:1.05rem;transform:rotate(8deg)}
-  .fine{font-size:clamp(.74rem,1.25vw,.88rem);font-weight:700;opacity:.66;line-height:1.4}
-  .ticks{list-style:none;text-align:left;font-weight:800;font-size:clamp(.9rem,1.5vw,1.05rem)}
-  .ticks li{margin:.5rem 0;padding-left:1.7em;position:relative;line-height:1.35}
-  .ticks li::before{content:"✓";position:absolute;left:0;top:0;width:1.2em;height:1.2em;border-radius:50%;
-    background:var(--soft-blue);border:2px solid var(--ink);display:grid;place-items:center;font-size:.8em;font-weight:900}
-  .headrow{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.4rem;flex-wrap:wrap}
-  .headrow h3{margin:0}
-
-  /* slide 6 : instagram */
-  .insta{display:flex;gap:clamp(1.4rem,3.5vw,3rem);align-items:center;justify-content:center;flex-wrap:wrap;width:min(1200px,96%)}
-  .phone{position:relative;width:clamp(140px,15vw,185px);aspect-ratio:9/17.5;border:4px solid var(--ink);
-    border-radius:30px;background:linear-gradient(160deg,var(--blue),#7DA1FF);box-shadow:9px 9px 0 var(--red);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;overflow:visible}
-  .phone::before{content:"";position:absolute;top:.55rem;left:50%;transform:translateX(-50%);
-    width:34%;height:.5rem;border-radius:999px;background:var(--ink)}
-  .spons{position:absolute;top:1.6rem;left:.8rem;background:#fff;border:2px solid var(--ink);border-radius:6px;
-    padding:.06em .5em;font-size:.62rem;font-weight:900}
-  .play{width:3.2rem;height:3.2rem;border-radius:50%;background:#fff;border:3px solid var(--ink);
-    display:grid;place-items:center;font-size:1.3rem;box-shadow:0 4px 0 rgba(0,0,0,.18)}
-  .vidbar{width:70%;height:.55rem;border-radius:999px;background:rgba(255,255,255,.85)}
-  .vidbar.short{width:46%}
-  .heart{position:absolute;right:-.4rem;bottom:18%;font-size:1.25rem;opacity:0;animation:rise 2.6s ease-out var(--del,0s) infinite}
-  @keyframes rise{0%{transform:translateY(0) scale(.5);opacity:0}18%{opacity:1}100%{transform:translateY(-130px) scale(1.2);opacity:0}}
-  .funnel{display:flex;flex-direction:column;gap:.45rem;align-items:flex-start;max-width:560px}
-  .frow{display:flex;align-items:center;gap:.7rem}
-  .fstep{display:flex;align-items:center;gap:.7rem;background:#fff;border:3px solid var(--ink);border-radius:18px;
-    padding:.6em 1.1em;font-weight:900;font-size:clamp(.95rem,1.8vw,1.25rem);box-shadow:5px 5px 0 var(--fc,var(--blue))}
-  .fstep em{font-style:normal;font-family:var(--head);font-weight:800;color:var(--fc,var(--blue))}
-  .fstep.f1{--fc:var(--blue)} .fstep.f2{--fc:var(--red)} .fstep.f3{--fc:var(--yellow)} .fstep.f4{--fc:var(--red);background:var(--soft-yellow)}
-  .fstep.f3 em{color:#C9920A}  /* jaune assombri : lisible sur fond blanc */
-  .fdown{font-size:1.4rem;margin-left:2.2rem;line-height:1;color:var(--ink)}
-
-  /* slide 7 : culture */
-  .culture{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;width:min(1150px,96%)}
-  .cult{flex:1 1 320px;max-width:440px;text-align:left}
-  .cult .flag{font-size:2.6rem;line-height:1;margin-bottom:.4rem}
-  .vs{z-index:3;margin:0 -1.4rem;transform:rotate(-7deg)}
-  .bigline{font-family:var(--head);font-weight:800;font-size:clamp(1.4rem,3.1vw,2.3rem);line-height:1.25}
-
-  /* slide 8 : feuille de route */
-  .steps{display:flex;gap:clamp(1rem,2.4vw,2rem);justify-content:center;align-items:stretch;flex-wrap:wrap;width:min(1240px,96%)}
-  .step{flex:1 1 0;min-width:250px;max-width:380px;position:relative;padding-top:2.3rem}
-  .stepnum{position:absolute;top:0;left:50%;transform:translateX(-50%) rotate(-6deg);width:3.6rem;height:3.6rem;
-    border-radius:50%;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);display:grid;place-items:center;
-    font-family:var(--head);font-weight:800;font-size:1.6rem;color:#fff;z-index:2}
-  .step .card{height:100%;padding-top:2.6rem}
-  .n1{background:var(--blue)} .n2{background:var(--red)} .n3{background:var(--yellow);color:var(--ink)}
-
-  /* responsive */
-  @media (max-height:760px){
-    .slide{padding-top:4rem}
-    h2{margin-bottom:1rem}
-    .card .big{font-size:2rem;margin-bottom:.3rem}
-    .punch{margin-top:1rem}
-  }
-</style>
+<meta charset="utf-8"/>
+<title>Les Petits Trilingues — Cours de chinois et d'anglais pour enfants en Île-de-France</title>
+<meta name="description" content="École de chinois et d'anglais pour enfants de 3 à 16 ans. Méthode ludique, petits groupes, professeurs natifs. 8 campus en Île-de-France. Cours d'essai gratuit."/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta property="og:title" content="Les Petits Trilingues — Le chinois et l'anglais, en s'amusant"/>
+<meta property="og:description" content="Cours de chinois et d'anglais pour enfants 3-16 ans. 8 campus en Île-de-France. Cours d'essai gratuit."/>
+<meta property="og:image" content="assets/img/marquee-1.jpg"/>
+<link rel="shortcut icon" href="assets/img/favicon-32.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/img/favicon-256.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/lpt.css"/>
 </head>
-<body data-slide="0">
+<body>
 
-<div class="topbar"></div>
-
-<div class="bg" id="bg">
-  <span class="blob sun"></span>
-  <span class="blob donut"></span>
-  <span class="blob cherry"></span>
-  <span class="blob pea"></span>
-</div>
-
-<header class="brand">
-  <span class="komo"><i>K</i><i>O</i><i>M</i><i>O</i></span>
-  <small>×&nbsp; Les Petites Trilingues · 三语宝贝</small>
+<!-- ============================== NAV ============================== -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/img/logo.png" alt="Les Petits Trilingues"/>
+      Les Petits Trilingues
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#cours">Nos cours</a>
+      <a href="#stages">Stages</a>
+      <a href="#seance">Une séance</a>
+      <a href="#profs">L'équipe</a>
+      <a href="#campus">Campus</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+33184802627">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg>
+        <span>01 84 80 26 27</span>
+      </a>
+      <a href="boulogne/" class="btn btn--primary">Cours d'essai gratuit</a>
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
 </header>
 
-<main id="deck">
-
-  <!-- 1 · COUVERTURE -->
-  <section class="slide">
-    <div class="bubbles pop" style="--d:.05s">
-      <span class="bub b" style="--del:0s">Bonjour&nbsp;!</span>
-      <span class="bub r" style="--del:.3s">你好&nbsp;!</span>
-      <span class="bub y" style="--del:.6s">Hello&nbsp;!</span>
-    </div>
-    <h1 class="pop" style="--d:.15s">Les <span class="c-red">Petites</span> <span class="c-blue squig">Trilingues</span></h1>
-    <div class="pop" style="--d:.3s;margin-top:1.1rem">
-      <span class="tag y" style="font-size:clamp(.95rem,1.8vw,1.25rem);padding:.25em 1em">三语宝贝</span>
-    </div>
-    <p class="sub pop" style="--d:.42s;margin-top:1.4rem">Le plan de <strong>KOMO</strong> pour conquérir le marché français&nbsp;🚀</p>
-    <p class="meta pop" style="--d:.52s">Juin 2026 · Présenté par KOMO</p>
-    <div class="hint">Naviguez avec&nbsp; ←&nbsp;→</div>
-  </section>
-
-  <!-- 2 · VOUS AVEZ DÉJÀ TOUT -->
-  <section class="slide">
-    <h2 class="pop">Vous avez déjà <span class="hl">tout pour percer</span>&nbsp;🎁</h2>
-    <p class="sub pop" style="--d:.1s">Une offre que (presque) personne d'autre n'a en France&nbsp;:</p>
-    <div class="cards">
-      <div class="card sh-b pop" style="--d:.18s;--rot:-1.4deg">
-        <div class="big">📚</div>
-        <h3>Les cours</h3>
-        <p>Chinois &amp; anglais pour les enfants, français pour les adultes.</p>
-        <div class="tags"><span class="tag">À l'année</span><span class="tag y">Vacances</span></div>
-      </div>
-      <div class="card sh-r pop" style="--d:.3s;--rot:1.2deg">
-        <div class="big">✈️</div>
-        <h3>Les séjours linguistiques</h3>
-        <p>L'immersion qui fait grandir, encadrée de A à Z.</p>
-        <div class="tags"><span class="tag r">🇨🇳 Chine</span><span class="tag">🇺🇸 USA</span><span class="tag y">🇬🇧 Angleterre</span><span class="tag">…</span></div>
-      </div>
-      <div class="card sh-y pop" style="--d:.42s;--rot:-1deg">
-        <div class="big">🧪</div>
-        <h3>Les stages ludiques</h3>
-        <p>Petites inventions &amp; grandes découvertes&nbsp;: apprendre en s'amusant.</p>
-        <div class="tags"><span class="tag y">Créativité</span><span class="tag r">Sciences</span><span class="tag">Fun</span></div>
-      </div>
-    </div>
-    <div class="punch pop" style="--d:.56s;--rot:-1deg">
-      <span class="sticker">Le produit est déjà là. Il ne manque que la lumière&nbsp;💡</span>
-    </div>
-  </section>
-
-  <!-- 3 · MAIS QUI LE SAIT ? -->
-  <section class="slide">
-    <h2 class="pop">Mais aujourd'hui… <span class="squig-r">qui le sait</span>&nbsp;?&nbsp;🙈</h2>
-    <div class="duo">
-      <div class="browser pop" style="--d:.15s;--rot:-1.2deg">
-        <div class="browser-top">
-          <span class="bdot b"></span><span class="bdot r"></span><span class="bdot y"></span>
-          <span class="url">votre-site-actuel.fr</span>
+<!-- ============================== HERO ============================= -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-tags">
+          <span class="hero-tag"><span class="dot" style="background:var(--yellow)"></span>Ludique</span>
+          <span class="hero-tag"><span class="dot" style="background:var(--red)"></span>Petits groupes</span>
+          <span class="hero-tag"><span class="dot" style="background:var(--blue)"></span>Profs natifs</span>
         </div>
-        <div class="browser-body">
-          <span class="lonely">Cours de chinois 中文</span>
-          <div class="skl s1"></div><div class="skl s2"></div><div class="skl s3"></div><div class="skl s4"></div>
-          <p class="caption">😴 Votre vitrine aujourd'hui&nbsp;: une seule histoire racontée.</p>
+        <h1>Le chinois et l'anglais, <span class="hl-blue squiggle">en s'amusant</span></h1>
+        <p class="hero-sub">Cours hebdomadaires et stages de vacances pour les enfants de 3 à 16 ans. Des professeurs natifs, des groupes de 6 à 8 enfants, et une méthode où l'on apprend en jouant.</p>
+        <div class="hero-actions">
+          <a href="boulogne/" class="btn btn--red btn--lg">Réserver un cours d'essai</a>
+          <a href="#cours" class="btn btn--ghost btn--lg">Découvrir les cours</a>
+        </div>
+        <div class="hero-trust">
+          <div class="avatars">
+            <span style="background:var(--blue)">L</span>
+            <span style="background:var(--red)">M</span>
+            <span style="background:var(--yellow-dark)">E</span>
+            <span style="background:var(--blue-dark)">+</span>
+          </div>
+          1 000+ élèves par an · 8 campus en Île-de-France
         </div>
       </div>
-      <div class="cloud pop" style="--d:.3s">
-        <span class="chip">Anglais enfants 🇬🇧</span>
-        <span class="chip r">Français adultes ✍️</span>
-        <span class="chip y">Séjour Chine 🇨🇳</span>
-        <span class="chip r">Séjour USA 🇺🇸</span>
-        <span class="chip">Séjour Angleterre 🏰</span>
-        <span class="chip y">Stages inventions 🧪</span>
-        <span class="chip">Cours vacances ☀️</span>
-        <span class="chip r">Ateliers créatifs 🎨</span>
-        <p class="caption" style="width:100%">✨ Tout ce que les familles françaises devraient voir… et ne voient pas.</p>
+      <div class="hero-media">
+        <span class="spark" style="top:-4%;left:8%">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="#ef5349"><path d="M12 2 L14 9 L22 12 L14 15 L12 22 L10 15 L2 12 L10 9 Z"/></svg>
+        </span>
+        <span class="spark" style="bottom:6%;right:-2%;animation-delay:1.2s">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#2a93dc"><path d="M12 2 L14 9 L22 12 L14 15 L12 22 L10 15 L2 12 L10 9 Z"/></svg>
+        </span>
+        <div class="blob"></div>
+        <div class="blob blob--blue"></div>
+        <img class="photo" src="assets/img/marquee-1.jpg" alt="Enfants en cours de langue aux Petits Trilingues"/>
       </div>
     </div>
-    <div class="punch pop" style="--d:.45s;--rot:1deg">
-      <span class="sticker">Bonne nouvelle&nbsp;: tout existe déjà. Il ne reste qu'à le raconter — c'est le métier de KOMO&nbsp;✨</span>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 4 · LE PLAN DE JEU -->
-  <section class="slide">
-    <h2 class="pop">Le <span class="c-blue">plan</span> de <span class="c-red">jeu</span>&nbsp;🎯</h2>
-    <p class="sub pop" style="--d:.1s">Trois leviers qui travaillent ensemble&nbsp;:</p>
-    <div class="cards">
-      <div class="card sh-b pop" style="--d:.18s;--rot:-1.3deg">
-        <div class="big">🔍</div>
-        <h3><span class="lvl b">1</span>Google</h3>
-        <p><strong>Être trouvé.</strong> Capter les familles qui cherchent déjà des cours autour de vos campus.</p>
+<!-- ============================ TRUST ×4 =========================== -->
+<section class="section" id="confiance">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 1 8l11 5 9-4.1V15"/><path d="M6 10.6V15c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.4"/></svg>
+        </div>
+        <h3>Professeurs natifs diplômés</h3>
+        <p>Des enseignants de langue maternelle chinoise et anglaise, formés à la pédagogie des tout-petits.</p>
       </div>
-      <div class="card sh-r pop" style="--d:.3s;--rot:1.1deg">
-        <div class="big">📱</div>
-        <h3><span class="lvl r">2</span>Instagram</h3>
-        <p><strong>Faire rêver.</strong> Booster vos vidéos auprès des parents qui scrollent.</p>
+      <div class="trust-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+        </div>
+        <h3>Groupes de 6 à 8 enfants</h3>
+        <p>Chaque enfant parle à chaque séance. Le professeur connaît chacun par son prénom.</p>
       </div>
-      <div class="card sh-y pop" style="--d:.42s;--rot:-1deg">
-        <div class="big">🏠</div>
-        <h3><span class="lvl y">3</span>Le site</h3>
-        <p><strong>Faire signer.</strong> Le socle qui transforme les curieux en inscrits.</p>
+      <div class="trust-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg>
+        </div>
+        <h3>On apprend en jouant</h3>
+        <p>Jeux, chansons, histoires, ateliers : la langue s'installe naturellement, sans par-cœur.</p>
+      </div>
+      <div class="trust-card">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>8 campus en Île-de-France</h3>
+        <p>Paris, Boulogne, Antony, Aubervilliers, Bussy-Saint-Georges… toujours un campus près de chez vous.</p>
       </div>
     </div>
-    <div class="punch pop" style="--d:.56s;--rot:-1deg">
-      <span class="sticker w">Objectif&nbsp;: pas des vues. Des <strong class="c-red">inscriptions</strong>&nbsp;🎒</span>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 5 · GOOGLE -->
-  <section class="slide">
-    <h2 class="pop"><span class="lvl b">1</span>Google&nbsp;: être trouvé <span class="hl">au bon moment</span>&nbsp;🔍</h2>
-    <div class="duo" style="align-items:stretch">
-      <div style="flex:1 1 360px;max-width:520px;display:flex;flex-direction:column;gap:1rem;justify-content:center">
-        <div class="search pop" style="--d:.15s">🔍 <span class="q">cours de chinois pour enfants près de chez moi</span></div>
-        <div class="result pop" style="--d:.28s;--rot:-1deg">
-          <span class="annonce">Annonce</span>
-          <h4>Les Petites Trilingues · 三语宝贝</h4>
-          <p>Chinois &amp; anglais pour enfants — campus à 1,2&nbsp;km ⭐⭐⭐⭐⭐</p>
-        </div>
-        <p class="fine pop" style="--d:.36s">Chaque campus capte les recherches de son quartier.</p>
-      </div>
-      <div style="flex:1 1 400px;max-width:560px;display:flex;flex-direction:column;gap:1.4rem;justify-content:center">
-        <div class="card sh-b pop" style="--d:.32s;--rot:1deg;position:relative;text-align:center">
-          <span class="roas">×18&nbsp;💥</span>
-          <div class="headrow"><span style="font-size:1.6rem">⚡</span><h3>Google Ads (SEA)</h3><span class="tag r">pour décoller vite</span></div>
-          <p>Notre spécialité chez KOMO. Cas réel — MALAC&nbsp;:</p>
-          <div class="stat">11&nbsp;k€ <span class="arr">➜</span> +200&nbsp;k€ de CA</div>
-          <p class="fine">Et ce, malgré la perte d'anciens clients sur la période&nbsp;: une croissance portée par les nouveaux.</p>
-        </div>
-        <div class="card sh-y pop" style="--d:.46s;--rot:-1deg">
-          <div class="headrow"><span style="font-size:1.6rem">🌱</span><h3>SEO</h3><span class="tag">pour durer</span></div>
-          <ul class="ticks">
-            <li><strong>Autoblogger</strong> — notre nouveau service de contenu automatisé</li>
-            <li>Refonte des <strong>balises HTML</strong> &amp; de la structure</li>
-            <li>Mois après mois, vous <strong>grimpez sur Google</strong></li>
-          </ul>
+<!-- ============================= STORY ============================= -->
+<section class="section section--cloud" id="ecole">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-media">
+        <img src="assets/img/story.webp" alt="L'école Les Petits Trilingues"/>
+        <div class="badge-xp">
+          <b>7+</b>
+          <small>années<br/>d'expérience</small>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 6 · INSTAGRAM -->
-  <section class="slide">
-    <h2 class="pop"><span class="lvl r">2</span>Instagram&nbsp;: faire <span class="squig">rêver les parents</span>&nbsp;✨</h2>
-    <p class="sub pop" style="--d:.1s">Vos vidéos sont déjà géniales. On leur offre un mégaphone&nbsp;📣</p>
-    <div class="insta">
-      <div class="phone pop" style="--d:.2s;--rot:-2deg">
-        <span class="spons">Sponsorisé</span>
-        <div class="play">▶️</div>
-        <div class="vidbar"></div>
-        <div class="vidbar short"></div>
-        <span class="heart" style="--del:0s">❤️</span>
-        <span class="heart" style="--del:.9s">💛</span>
-        <span class="heart" style="--del:1.7s">💙</span>
-      </div>
-      <div class="funnel">
-        <div class="fstep f1 pop" style="--d:.28s">💶 <em>35&nbsp;€</em> / semaine de boost</div>
-        <div class="fdown pop" style="--d:.36s">↓</div>
-        <div class="fstep f2 pop" style="--d:.42s">👀 <em>+10&nbsp;000</em> vues</div>
-        <div class="fdown pop" style="--d:.5s">↓</div>
-        <div class="fstep f3 pop" style="--d:.56s">🏠 ≈&nbsp;<em>1&nbsp;000</em> visites sur votre site</div>
-        <div class="fdown pop" style="--d:.64s">↓</div>
-        <div class="fstep f4 pop" style="--d:.7s;--rot:-1deg">🎉 à 1&nbsp;% de conversion&nbsp;: ≈&nbsp;<em>10 inscriptions</em></div>
+      <div class="story-copy">
+        <span class="eyebrow">Notre école</span>
+        <h2>Une école pensée pour les enfants, pas une salle de classe de plus</h2>
+        <p>Depuis 7 ans, nous enseignons le chinois et l'anglais aux enfants d'Île-de-France. Notre conviction : à cet âge, une langue ne s'apprend pas dans un manuel — elle se vit. Nos salles sont pensées pour bouger, manipuler, chanter et jouer.</p>
+        <ul class="ticks">
+          <li>Plus de 1 000 élèves nous font confiance chaque année</li>
+          <li>Une équipe de 25 professeurs natifs et passionnés</li>
+          <li>Des groupes par âge et par niveau, jamais surchargés</li>
+        </ul>
+        <a href="#cours" class="btn btn--primary">Voir nos cours</a>
       </div>
     </div>
-    <p class="fine punch pop" style="--d:.8s">Simulation prudente — à affiner campus par campus.</p>
-  </section>
+  </div>
+</section>
 
-  <!-- 7 · LE SITE -->
-  <section class="slide">
-    <h2 class="pop"><span class="lvl y">3</span>Le site&nbsp;: <span class="hl">là où tout se joue</span>&nbsp;🏠</h2>
-    <div class="culture">
-      <div class="card sh-r cult pop" style="--d:.15s;--rot:-1.3deg">
-        <div class="flag">🇨🇳</div>
-        <h3>En Chine</h3>
-        <p>Le site web compte peu&nbsp;: WeChat, 小红书 et le bouche-à-oreille font le travail.</p>
+<!-- =========================== PROGRAMS ============================ -->
+<section class="section" id="cours">
+  <div class="container">
+    <div class="prog-head">
+      <div class="sec-head sec-head--left" style="margin-bottom:0">
+        <span class="eyebrow">Cours &amp; stages</span>
+        <h2>Des programmes pour <span class="hl-red">chaque âge</span></h2>
+        <p>Sous chaque cours : les campus où il est proposé.</p>
       </div>
-      <div class="sticker vs pop" style="--d:.4s">C'est culturel&nbsp;!</div>
-      <div class="card sh-b cult pop" style="--d:.27s;--rot:1.3deg">
-        <div class="flag">🇫🇷</div>
-        <h3>En France</h3>
-        <p>Le site est <strong>LE</strong> générateur de leads n°1&nbsp;: les parents lisent tout, comparent… puis s'inscrivent.</p>
+      <div class="prog-nav">
+        <button id="progPrev" aria-label="Précédent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="progNext" aria-label="Suivant">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
     </div>
-    <p class="bigline punch pop" style="--d:.52s">
-      <span class="c-blue">Google fait venir.</span> <span class="c-red">Insta fait rêver.</span> <span class="squig">Le site fait signer&nbsp;✍️</span>
-    </p>
-    <p class="sub pop" style="--d:.62s;margin-top:1rem;margin-bottom:0">Tous nos leviers passent par lui — c'est la pièce maîtresse.</p>
-  </section>
 
-  <!-- 8 · FEUILLE DE ROUTE -->
-  <section class="slide">
-    <h2 class="pop">La <span class="c-blue">feuille</span> de <span class="c-red">route</span>&nbsp;🗺️</h2>
-    <div class="steps">
-      <div class="step pop" style="--d:.15s;--rot:-1deg">
-        <span class="stepnum n1">1</span>
-        <div class="card sh-b">
-          <h3>On pose le socle 🏠</h3>
-          <p>Un site moderne qui montre enfin <strong>toute</strong> votre offre — et pensé pour convertir.</p>
+    <div class="prog-track" id="progTrack">
+
+      <article class="prog-card">
+        <div class="media">
+          <img src="assets/img/class-1.jpg" alt="Cours de chinois éveil"/>
+          <span class="age-badge">3 – 6 ans</span>
+        </div>
+        <div class="body">
+          <h3>Chinois · Éveil</h3>
+          <p class="desc">Premiers mots, comptines et jeux sensoriels. L'oreille se forme à l'âge où tout s'absorbe.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip chip--all">Tous les campus</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="prog-card">
+        <div class="media">
+          <img src="assets/img/class-2.jpg" alt="Cours de chinois junior"/>
+          <span class="age-badge">7 – 11 ans</span>
+        </div>
+        <div class="body">
+          <h3>Chinois · Junior</h3>
+          <p class="desc">Lecture, écriture des premiers caractères et vrai bagage oral, en petits groupes de niveau.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip chip--all">Tous les campus</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="prog-card">
+        <div class="media">
+          <img src="assets/img/class-3.jpg" alt="Cours de chinois ado"/>
+          <span class="age-badge">12 – 16 ans</span>
+        </div>
+        <div class="body">
+          <h3>Chinois · Ado</h3>
+          <p class="desc">Préparation HSK et YCT, conversation et culture. Un vrai atout pour le lycée et après.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip">Arts et Métiers</span>
+            <span class="chip">Belleville</span>
+            <span class="chip">Boulogne</span>
+            <span class="chip">Bussy-St-Georges</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="prog-card">
+        <div class="media">
+          <img src="assets/img/class-4.jpg" alt="Cours d'anglais éveil"/>
+          <span class="age-badge">4 – 6 ans</span>
+        </div>
+        <div class="body">
+          <h3>Anglais · Éveil</h3>
+          <p class="desc">Chansons, albums et jeux de rôle avec des enseignants anglophones natifs.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip">Boulogne</span>
+            <span class="chip">Antony</span>
+            <span class="chip">Vincennes</span>
+            <span class="chip">Arts et Métiers</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="prog-card">
+        <div class="media">
+          <img src="assets/img/class-5.jpg" alt="Cours d'anglais junior"/>
+          <span class="age-badge">7 – 11 ans</span>
+        </div>
+        <div class="body">
+          <h3>Anglais · Junior</h3>
+          <p class="desc">Grammaire en action, expression orale et confiance à l'écrit — loin des cours magistraux.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip">Boulogne</span>
+            <span class="chip">Antony</span>
+            <span class="chip">Vincennes</span>
+            <span class="chip">Belleville</span>
+            <span class="chip">Bussy-St-Georges</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="prog-card" id="stages">
+        <div class="media">
+          <img src="assets/img/marquee-3.jpg" alt="Stages de vacances ludiques"/>
+          <span class="age-badge">4 – 12 ans</span>
+        </div>
+        <div class="body">
+          <h3>Stages de vacances</h3>
+          <p class="desc">Une semaine d'immersion ludique à chaque vacances scolaires : langue le matin, ateliers créatifs l'après-midi.</p>
+          <div class="campus-chips">
+            <span class="chips-label">Campus</span>
+            <span class="chip">Boulogne</span>
+            <span class="chip">Arts et Métiers</span>
+            <span class="chip">Bussy-St-Georges</span>
+            <span class="chip">Antony</span>
+          </div>
+          <a class="more" href="boulogne/">Essayer gratuitement
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TIMELINE =========================== -->
+<section class="section section--cloud" id="seance">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Concrètement</span>
+      <h2>Une séance type, <span class="hl-blue">60 minutes</span></h2>
+      <p>Le même rituel chaque semaine : les enfants savent où ils vont, et la langue devient une habitude heureuse.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-time">0 – 10 min</span>
+        <h3>Accueil en langue</h3>
+        <p>Dès la porte, on ne parle plus français. Rituels de salutation, météo, humeur du jour.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">10 – 30 min</span>
+        <h3>Jeux &amp; immersion</h3>
+        <p>Jeux de rôle, chansons, mimes : le vocabulaire de la semaine arrive par le corps et le jeu.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">30 – 50 min</span>
+        <h3>Atelier guidé</h3>
+        <p>Histoire, calligraphie, bricolage ou théâtre selon l'âge — on utilise la langue pour créer.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-time">50 – 60 min</span>
+        <h3>Retour aux parents</h3>
+        <p>Chaque enfant repart en montrant ce qu'il sait dire. Vous suivez les progrès semaine après semaine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TEACHERS =========================== -->
+<section class="section" id="profs">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">L'équipe</span>
+      <h2>Des profs qui font <span class="hl-red">aimer la langue</span></h2>
+      <p>25 enseignants natifs, recrutés pour leur pédagogie autant que pour leur diplôme.</p>
+    </div>
+    <div class="teachers-grid">
+      <div class="teacher-card">
+        <img src="assets/img/teacher-1.jpg" alt="Professeure de chinois"/>
+        <h3>Li Wei</h3>
+        <p class="role">Chinois · Éveil &amp; Junior</p>
+        <div class="langs"><span>中文</span><span class="l-fr">FR</span></div>
+      </div>
+      <div class="teacher-card">
+        <img src="assets/img/teacher-2.jpg" alt="Professeur d'anglais"/>
+        <h3>Emma Clarke</h3>
+        <p class="role">Anglais · Éveil</p>
+        <div class="langs"><span class="l-en">EN</span><span class="l-fr">FR</span></div>
+      </div>
+      <div class="teacher-card">
+        <img src="assets/img/class-2.jpg" alt="Professeure de chinois ado"/>
+        <h3>Chen Yu</h3>
+        <p class="role">Chinois · Ado &amp; HSK</p>
+        <div class="langs"><span>中文</span><span class="l-en">EN</span></div>
+      </div>
+      <div class="teacher-card">
+        <img src="assets/img/class-4.jpg" alt="Professeur d'anglais junior"/>
+        <h3>James Miller</h3>
+        <p class="role">Anglais · Junior &amp; stages</p>
+        <div class="langs"><span class="l-en">EN</span><span class="l-fr">FR</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================== TESTIMONIALS ========================= -->
+<section class="section section--cloud" id="avis">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Ils en parlent mieux que nous</span>
+      <h2>Ce que disent les <span class="hl-blue">parents</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+        </div>
+        <blockquote>« Ma fille a commencé à 4 ans sans un mot de chinois. Trois ans plus tard, elle lit ses premières histoires toute seule. Les professeurs sont d'une patience remarquable. »</blockquote>
+        <div class="testi-author">
+          <span class="avatar" style="background:var(--blue)">C</span>
+          <div><b>Claire D.</b><small>Maman d'Emma, 7 ans · Boulogne</small></div>
         </div>
       </div>
-      <div class="step pop" style="--d:.3s;--rot:1deg">
-        <span class="stepnum n2">2</span>
-        <div class="card sh-r">
-          <h3>On allume Google 🔍</h3>
-          <p>Ads autour de chaque campus dès le 1er mois, pendant que le SEO s'installe.</p>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+        </div>
+        <blockquote>« On cherchait de l'anglais "pour de vrai", pas des dessins animés. Léo attend son cours du mercredi comme une sortie. C'est bien simple : il chante en anglais sous la douche. »</blockquote>
+        <div class="testi-author">
+          <span class="avatar" style="background:var(--red)">S</span>
+          <div><b>Sofiane B.</b><small>Papa de Léo, 8 ans · Antony</small></div>
         </div>
       </div>
-      <div class="step pop" style="--d:.45s;--rot:-1deg">
-        <span class="stepnum n3">3</span>
-        <div class="card sh-y">
-          <h3>On amplifie 📱</h3>
-          <p>Vidéos boostées sur Instagram&nbsp;: la notoriété décolle.</p>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.2l7.1-.6z"/></svg>
+        </div>
+        <blockquote>« Le stage d'été a été le déclic. Une semaine plus tard, notre fils demandait à continuer à l'année. Le niveau HSK 2 a été validé sans stress. »</blockquote>
+        <div class="testi-author">
+          <span class="avatar" style="background:var(--yellow-dark)">M</span>
+          <div><b>Mei L.</b><small>Maman de Lucas, 12 ans · Bussy-Saint-Georges</small></div>
         </div>
       </div>
     </div>
-    <div class="punch pop" style="--d:.6s;--rot:1deg">
-      <span class="sticker">🎒 Des inscriptions toute l'année — cours, séjours &amp; stages</span>
+  </div>
+</section>
+
+<!-- ============================= STATS ============================= -->
+<section class="section" id="campus">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stats-media">
+        <img src="assets/img/philosophy.jpg" alt="Nos campus en Île-de-France"/>
+      </div>
+      <div class="stats-copy">
+        <span class="eyebrow">Une école qui grandit</span>
+        <h2>La confiance de plus de 1 000 familles</h2>
+        <p>Huit campus : Arts et Métiers (Paris 3ᵉ), Belleville (Paris 20ᵉ), Olympiades (Paris 13ᵉ), Boulogne-Billancourt, Antony, Aubervilliers, Bussy-Saint-Georges et Vincennes.</p>
+        <div class="stats-nums">
+          <div class="stat"><b>7+</b><span>années d'expérience</span></div>
+          <div class="stat"><b>25+</b><span>professeurs natifs</span></div>
+          <div class="stat"><b>1 000+</b><span>élèves par an</span></div>
+          <div class="stat"><b>8</b><span>campus en Île-de-France</span></div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 9 · MERCI -->
-  <section class="slide">
-    <div class="bubbles pop" style="--d:.05s">
-      <span class="bub b" style="--del:0s">Merci&nbsp;!</span>
-      <span class="bub r" style="--del:.3s">谢谢&nbsp;!</span>
-      <span class="bub y" style="--del:.6s">Thank you&nbsp;!</span>
+<!-- ============================== FAQ ============================== -->
+<section class="section section--cloud" id="faq">
+  <div class="container">
+    <div class="sec-head">
+      <span class="eyebrow">Questions fréquentes</span>
+      <h2>Vous vous demandez sûrement…</h2>
     </div>
-    <h1 class="pop" style="--d:.18s;font-size:clamp(2.1rem,5.4vw,4rem)">Prêts à devenir <span class="c-blue">LA</span> référence<br><span class="squig-r">trilingue</span> en France&nbsp;?</h1>
-    <div class="punch pop" style="--d:.36s;--rot:-1.5deg">
-      <span class="sticker">On commence quand&nbsp;? 😄</span>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">À partir de quel âge peut-on commencer ?
+          <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a"><div><p>Dès 3 ans pour le chinois, 4 ans pour l'anglais. À cet âge, tout passe par le jeu, la musique et la répétition joyeuse — aucun prérequis, aucune pression.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Mon enfant n'a aucune base. C'est un problème ?
+          <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a"><div><p>C'est le cas de la majorité de nos élèves en arrivant. Les groupes sont constitués par âge <em>et</em> par niveau : votre enfant démarre exactement là où il en est.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Combien d'enfants par groupe ?
+          <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a"><div><p>6 à 8 enfants maximum. C'est le seuil qui garantit que chaque enfant parle réellement à chaque séance — pas juste écoute.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Comment se passe le cours d'essai ?
+          <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a"><div><p>Le premier cours est gratuit et sans engagement. Votre enfant rejoint un groupe de son âge, vous observez, et on fait le point ensemble à la sortie.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Que se passe-t-il pendant les vacances scolaires ?
+          <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a"><div><p>Les cours hebdomadaires font une pause, et nos stages ludiques prennent le relais : une semaine d'immersion, langue le matin, ateliers créatifs l'après-midi.</p></div></div>
+      </div>
     </div>
-    <p class="meta pop" style="--d:.5s;display:flex;align-items:center;gap:.7rem;justify-content:center">
-      <span class="komo" style="font-size:.8rem"><i>K</i><i>O</i><i>M</i><i>O</i></span>
-      <span>× Les Petites Trilingues · 三语宝贝 · Juin 2026</span>
-    </p>
-  </section>
+  </div>
+</section>
 
-</main>
+<!-- ============================ CTA FINAL ========================== -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta-panel">
+      <span class="spark" style="top:18%;left:8%">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="#ffd84d"><path d="M12 2 L14 9 L22 12 L14 15 L12 22 L10 15 L2 12 L10 9 Z"/></svg>
+      </span>
+      <span class="spark" style="bottom:16%;right:9%;animation-delay:1s">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff" opacity=".7"><path d="M12 2 L14 9 L22 12 L14 15 L12 22 L10 15 L2 12 L10 9 Z"/></svg>
+      </span>
+      <h2>Prêt pour le premier cours ?</h2>
+      <p>Le cours d'essai est gratuit et sans engagement. Trouvez le campus le plus proche et réservez en 2 minutes.</p>
+      <div class="actions">
+        <a href="boulogne/" class="btn btn--white btn--lg">Réserver un cours d'essai gratuit</a>
+        <a class="tel" href="tel:+33184802627">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.4 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg>
+          01 84 80 26 27
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="dots" id="dots"></div>
-<div class="pagenum" id="pagenum">1 / 9</div>
+<!-- ============================= FOOTER ============================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <img src="assets/img/logo.png" alt=""/>
+          Les Petits Trilingues
+        </a>
+        <p>Cours de chinois et d'anglais pour enfants de 3 à 16 ans, et stages ludiques à chaque vacances scolaires.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#cours">Nos cours</a></li>
+          <li><a href="#stages">Stages de vacances</a></li>
+          <li><a href="#profs">L'équipe</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="boulogne/">Cours d'essai gratuit</a></li>
+        </ul>
+      </div>
+      <div class="footer-campus">
+        <h4>Nos 8 campus</h4>
+        <ul>
+          <li>Arts et Métiers · Paris 3ᵉ</li>
+          <li>Belleville · Paris 20ᵉ</li>
+          <li>Olympiades · Paris 13ᵉ</li>
+          <li>Boulogne-Billancourt</li>
+          <li>Antony</li>
+          <li>Aubervilliers</li>
+          <li>Bussy-Saint-Georges</li>
+          <li>Vincennes</li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <ul>
+          <li>📞 <a href="tel:+33184802627">01 84 80 26 27</a></li>
+          <li>✉️ <a href="mailto:bonjour@lespetitstrilingues.fr">bonjour@lespetitstrilingues.fr</a></li>
+          <li>🕘 Lun–Sam · 9h–18h</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Les Petits Trilingues — Tous droits réservés</span>
+      <span>Mentions légales · Politique de confidentialité</span>
+    </div>
+  </div>
+</footer>
 
-<script>
-  // ----- confettis décoratifs (positionnés sur les bords) -----
-  const bg = document.getElementById('bg');
-  const colors = {b:'#2A6BE8', r:'#FF5252', y:'#FFC831'};
-  const conf = [
-    [4,30,'r',0],[8,58,'y',1],[3,78,'b',0],[12,90,'r',1],
-    [90,14,'b',0],[95,42,'r',1],[88,58,'y',0],[93,86,'b',1],
-    [30,5,'y',1],[55,4,'r',0],[72,7,'b',1],[42,94,'y',0],[64,92,'b',1],[20,8,'b',0]
-  ];
-  conf.forEach(([x,y,c,round],i)=>{
-    const s=document.createElement('span');
-    s.className='confetti'+(round?' round':'');
-    const w=round?10+(i%3)*3:8+(i%3)*2, h=round?w:16+(i%4)*3;
-    s.style.cssText=`left:${x}%;top:${y}%;width:${w}px;height:${h}px;background:${colors[c]};
-      --rot:${(i%2?-1:1)*(8+i*2)}deg;--dur:${5.5+(i%5)}s;--del:${(i%7)*.4}s;opacity:.8`;
-    bg.appendChild(s);
-  });
-  [[16,22,'y'],[84,26,'r'],[10,68,'b'],[91,72,'y'],[78,90,'r']].forEach(([x,y,c],i)=>{
-    const s=document.createElement('span');
-    s.className='star'; s.textContent='✦';
-    s.style.cssText=`left:${x}%;top:${y}%;color:${colors[c]};--dur:${6+i}s;--del:${i*.5}s;--rot:${i%2?-14:14}deg`;
-    bg.appendChild(s);
-  });
-
-  // ----- navigation : flèches uniquement -----
-  const slides=[...document.querySelectorAll('.slide')];
-  const dotsBox=document.getElementById('dots');
-  slides.forEach(()=>{const d=document.createElement('span');d.className='dot';dotsBox.appendChild(d);});
-  const dots=[...dotsBox.children];
-  let cur=-1;
-
-  function go(n){
-    const next=Math.max(0,Math.min(slides.length-1,n));
-    if(next===cur)return;
-    cur=next;
-    slides.forEach((s,k)=>{s.classList.toggle('active',k===cur);s.classList.toggle('prev',k<cur);});
-    dots.forEach((d,k)=>d.classList.toggle('on',k===cur));
-    document.getElementById('pagenum').textContent=(cur+1)+' / '+slides.length;
-    document.body.dataset.slide=cur;
-  }
-
-  const NEXT=['ArrowRight','ArrowDown','PageDown'];   // PageDown/Up : télécommandes de présentation
-  const PREV=['ArrowLeft','ArrowUp','PageUp'];
-  window.addEventListener('keydown',e=>{
-    if(NEXT.includes(e.key)){e.preventDefault();go(cur+1);}
-    else if(PREV.includes(e.key)){e.preventDefault();go(cur-1);}
-    else if(e.key==='Home'){e.preventDefault();go(0);}
-    else if(e.key==='End'){e.preventDefault();go(slides.length-1);}
-  });
-
-  go(0);
-</script>
+<script src="assets/js/lpt.js"></script>
 </body>
 </html>
