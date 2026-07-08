@@ -1,6 +1,9 @@
 # Backup of the original Webflow images, kept locally only
 assets/images-original-backup/
 
+# Documents de référence client (affiches WeChat) — local uniquement
+Quelques formations LPT/
+
 # OS junk
 .DS_Store
 Thumbs.db
