@@ -116,7 +116,7 @@ button { font: inherit; cursor: pointer; }
 
 /* ---------- type scale (façon template : display énorme, tracking serré) */
 .display-1 {
-  font-size: clamp(2.7rem, 7vw, 6.2rem);
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -.04em;
@@ -373,11 +373,20 @@ button { font: inherit; cursor: pointer; }
   height: .22em;
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 12' preserveAspectRatio='none'><path d='M2 8 Q 16 2 32 8 T 62 8 T 92 8 T 118 6' stroke='%23ffd84d' stroke-width='5' fill='none' stroke-linecap='round'/></svg>") no-repeat center / 100% 100%;
 }
-/* stickers du hero — positions calquées sur le template
-   (gauche -6°, milieu -15° en bas, droite +32° en haut) */
-.hero-stick-left  { top: -14px; left: clamp(0px, 8vw, 105px); transform: rotate(-5.75deg); }
-.hero-stick-right { top: -40px; right: clamp(-20px, -1vw, -8px); transform: rotate(32deg); }
-.hero-stick-mid   { bottom: -18px; left: 55%; transform: translateX(-55%) rotate(-15deg); }
+/* stickers du hero — le titre est large (ligne 1 pleine largeur),
+   donc : un sticker AU-DESSUS de la ligne 1, et les deux autres de
+   part et d'autre de la ligne 2 (courte), dans l'espace vide. */
+.hero-stick-left  { top: -44px; left: 4%; transform: rotate(-5.75deg); }
+.hero-stick-right { bottom: 4px; right: clamp(10px, 8vw, 150px); transform: rotate(13deg); }
+.hero-stick-mid   { bottom: -6px; left: clamp(10px, 8vw, 140px); transform: rotate(-11deg); }
+
+.hero-sub {
+  text-align: center;
+  max-width: 620px;
+  margin: -10px auto clamp(28px, 4.5vw, 48px);
+  font-size: 1.15rem;
+  color: var(--muted);
+}
 
 .hero-media {
   position: relative;
@@ -419,7 +428,16 @@ button { font: inherit; cursor: pointer; }
 .hero-meta .avatars span:first-child { margin-left: 0; }
 
 @media (max-width: 700px) {
-  .hero-stick-right { top: -34px; right: 0; }
+  /* écrans étroits : on ne garde que le sticker du bas, centré sous
+     le titre (les latéraux mangeraient le texte) */
+  .hero-stick-left, .hero-stick-right { display: none; }
+  .hero-title { margin-bottom: 58px; }
+  .hero-stick-mid {
+    bottom: -46px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-8deg);
+    animation-name: pop-in-mid;
+  }
   .hero-media img { aspect-ratio: 4 / 3; }
 }
 
@@ -1224,12 +1242,7 @@ button { font: inherit; cursor: pointer; }
   .nav .button { padding: 8px 16px 8px 8px; font-size: .9rem; }
   .nav .button .bico { width: 32px; height: 32px; }
 
-  /* hero : on ne garde que le sticker du bas (les latéraux mangent
-     le titre sur petit écran, comme sur le template d'origine) —
-     et on le décale sous le titre pour qu'il ne couvre pas le texte */
-  .hero-stick-left, .hero-stick-right { display: none; }
-  .hero-title { margin-bottom: 58px; }
-  .hero-stick-mid { bottom: -46px; }
+  /* (stickers hero gérés dans le bloc ≤700px) */
   .display-1 { font-size: clamp(2.2rem, 10.5vw, 2.9rem); }
   .hero-meta { font-size: .85rem; gap: 10px; }
 
@@ -1283,16 +1296,14 @@ button { font: inherit; cursor: pointer; }
 
 /* stickers du hero : pop avec rebond, en gardant leur rotation propre */
 .hero-stick-left  { --rot: -5.75deg; animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .5s both; }
-.hero-stick-right { --rot: 32deg;    animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .68s both; }
-.hero-stick-mid   { --rot: -15deg;   animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .86s both; }
-/* le transform du keyframe remplace celui de base : re-applique translateX du mid */
-.hero-stick-mid { transform: translateX(-55%) rotate(-15deg); }
+.hero-stick-right { --rot: 13deg;    animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .68s both; }
+.hero-stick-mid   { --rot: -11deg;   animation: pop-in .6s cubic-bezier(.34, 1.56, .64, 1) .86s both; }
+/* variante centrée (mobile) : le keyframe doit garder le translateX */
 @keyframes pop-in-mid {
-  0%   { opacity: 0; transform: translateX(-55%) scale(.3) rotate(-15deg); }
-  70%  { opacity: 1; transform: translateX(-55%) scale(1.15) rotate(-15deg); }
-  100% { opacity: 1; transform: translateX(-55%) scale(1) rotate(-15deg); }
+  0%   { opacity: 0; transform: translateX(-50%) scale(.3) rotate(-8deg); }
+  70%  { opacity: 1; transform: translateX(-50%) scale(1.15) rotate(-8deg); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1) rotate(-8deg); }
 }
-.hero-stick-mid { animation-name: pop-in-mid; }
 
 /* wobble léger permanent sur les stickers du hero, après le pop */
 @keyframes wobble {
