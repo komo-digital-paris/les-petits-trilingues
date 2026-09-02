@@ -1,3 +1,14 @@
+# === SITE RETIRÉ DE LA PUBLICATION (juillet 2026) ===
+# La prospection LPT n'a pas abouti : le site démo et la proposition
+# commerciale sont dépubliés pour ne pas rester accessibles.
+# Tout est CONSERVÉ en local et dans l'historique git (commit 17b6597).
+# Pour republier : retirer les 4 lignes ci-dessous, puis
+#   git checkout 17b6597 -- index.html boulogne assets proposition
+index.html
+boulogne/
+assets/
+proposition/
+
 # Backup of the original Webflow images, kept locally only
 assets/images-original-backup/
 
