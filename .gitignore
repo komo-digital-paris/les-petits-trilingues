@@ -1,16 +1,12 @@
-# === SITE RETIRÉ DE LA PUBLICATION (juillet 2026) ===
+# === SITE DÉPUBLIÉ (juillet 2026) ===
 # La prospection LPT n'a pas abouti : le site démo et la proposition
-# commerciale sont dépubliés pour ne pas rester accessibles.
-# Tout est CONSERVÉ en local et dans l'historique git (commit 17b6597).
-# Pour republier : retirer les 4 lignes ci-dessous, puis
-#   git checkout 17b6597 -- index.html boulogne assets proposition
-index.html
-boulogne/
-assets/
-proposition/
-
-# Backup of the original Webflow images, kept locally only
-assets/images-original-backup/
+# commerciale ne doivent plus être accessibles en ligne.
+# Tout est CONSERVÉ dans _local-demo/ et dans l'historique git
+# (dernier état complet : commit 17b6597).
+# Pour republier (autre prospect) : sortir les fichiers de _local-demo/
+# vers la racine, retirer la ligne _local-demo/ ci-dessous, et
+# supprimer l'index.html placeholder.
+_local-demo/
 
 # Documents de référence client (affiches WeChat) — local uniquement
 Quelques formations LPT/
